@@ -1,0 +1,48 @@
+\textbf{1 (c).}\\
+Expectation Maximization for Gaussian Mixture Models:
+\\
+$p(x,z)=\Pi {\pi_k}^{z_k}N(x|\mu_k,\Sigma_k)^{z_k}$\\
+$p(x,z)=\Pi {\pi_k}^{z_k}{\sqrt{\frac{|\Lambda|}{2\pi}}}^{z_k}e^{-\frac{z_k(x-\mu_k)^T\Lambda_k(x-\mu_k)}{2}}$ where $\Lambda_k$ is the inverse of covariance matrix $\Sigma_k$\\
+$p(x,z)=\frac{1}{\sqrt{2\pi^{z_k}}}e^{\Sigma z_k log{\pi_k}+ \frac{z_k}{2}log{|\Lambda_k|}-\frac{z_k}{2}(X^T\Lambda_k X-2{\mu_k}^T\Lambda_k X+{\mu_k}^T\Lambda_k \mu_k)}$\\
+By reducing the above equation, we get\\
+$p(X,z)=\frac{1}{\sqrt{2\pi^{z_k}}}e^{(\Sigma z_k\beta_k)-\frac{1}{2} \Sigma (z_k XX^T\Lambda_k) +\Sigma (z_kX^T\Lambda_k \mu_k)}$\\
+where $\beta_k$ is dependent only on the fixed parameters and is equal to ($log{\pi_k}+0.5*log{|\Lambda_k|}-0.5{\mu_k}^T\Lambda_k \mu_k$)\\
+Probability Density Function $ p(X_1,X_2,..X_n,z_1,z_2,..,z_n)= \Pi_{i=1}^n p(X_i,z_i)\\
+= \frac{1}{{\sqrt{2\pi^{z_k}}}^n}e^{\Sigma_{k=1}^K (\Sigma_{i=1}^n z_{ik})\beta_k-\frac{1}{2}\Sigma_{k=1}^K(\Sigma_{i=1}^n z_{ik}X_i{X_i}^T)\Lambda_k+\Sigma_{k=1}^K(\Sigma_{i=1}^n z_{ik}{X_i}^T)\Lambda_k \mu_k}$\\
+Log of probability density function:\\
+$ln(p)=\Sigma_{k=1}^K (\Sigma_{i=1}^n z_{ik})\beta_k-\frac{1}{2}\Sigma_{k=1}^K(\Sigma_{i=1}^n z_{ik}X_i{X_i}^T)\Lambda_k+\Sigma_{k=1}^K(\Sigma_{i=1}^n z_{ik}{X_i}^T)\Lambda_k \mu_k$\\
+In the above equation sufficient statistics functions are $\Sigma z_{ik},\Sigma z_{ik}X_i, \Sigma z_{ik}X_i{X_i}^T$
+According to Expectation Maximization $E_{{\theta}_{t-1}}( (S_j(X,Z)|X=x)= E_{{\theta}_t}(X,Z)$ where $S_j$ are sufficient statistics\\
+Now let's apply the above equation to the sufficient statistics functions of EM of GMMs\\
+(i) To $\Sigma z_{ik}$:\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}|X=x_i)=E_\theta(\Sigma_{i=1}^N z_{ik})$\\
+$E_\theta(\Sigma_{i=1}^N z_{ik})=\Sigma_{i=1}^N(E_\theta z_{ik})= \Sigma_{i=1}^N \pi_k = N\pi_k$ (7)\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}|X=x_i)=\Sigma_{i=1}^N E_{\theta_0}( z_{ik}|X=x_i)$\\
+As derived from 1(b)\\
+$p(z_k^n|x_n)=\frac{\pi_k N(x_n|\mu_k,\Sigma_k)}{\Sigma\pi_l N(x_n|\mu_l,\Sigma_l)}$, let this be equal to $\gamma(z_{nk})$\\
+So $\Sigma_{i=1}^N E_{\theta_0}( z_{ik}|X=x_i)=\Sigma_{i=1}^N\gamma(z_{ik})=N_k$ (8)\\
+Equation equation 7 and 8, we get:\\
+$N\pi_k=N_k$, this implies $\pi_k=\frac{N_k}{N}$\\
+(ii) To $\Sigma z_{ik}X_i$:\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}X_i|X=x_i)=E_\theta(\Sigma_{i=1}^N z_{ik}X_i)$ (9)\\
+$E_\theta(\Sigma_{i=1}^N z_{ik}X_i)=\Sigma_{i=1}^N(E_\theta(z_{ik}X_i))$\\
+$E_\theta(z_{ik}X_i)=E_\theta( E_\theta(z_{ik}X_i|z_{ik}))$\\
+$E_\theta(z_{ik}X_i|z_{ik})=E_\theta(X_i|z_{ik}=1)= \pi_k\mu_k$\\
+$E_\theta( E_\theta(z_{ik}X_i|z_{ik}))=\pi_k\mu_k$\\
+This implies $E_\theta(\Sigma_{i=1}^N z_{ik}X_i)=\Sigma_{i=1}^N(E_\theta(z_{ik}X_i))=N\pi_k\mu_k = N_k\mu_k$ (10)\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}X_i|X=x_i)=\Sigma_{i=1}^N E_{\theta_0} (z_{ik}X_i|X=x_i) = \Sigma_{i=1}^N \gamma_{ik}X_i$ (11)\\
+Substituting eq. 10 and 11 in 9,\\
+$N_k\mu_k=\Sigma_{i=1}^N \gamma(z_{ik})X_i$\\
+This implies $\mu_k=\frac{\Sigma_{i=1}^N \gamma_{ik}X_i}{N_k}$\\
+(iii) To $\Sigma z_{ik}X_i{X_i}^T$:\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}X_i X_i^T|X_i=x_i) = E_\theta(\Sigma_{i=1}^N z_{ik}X_i X_i^T)$ (12)\\
+$E_\theta(\Sigma_{i=1}^N z_{ik}X_i X_i^T)=\Sigma_{i=1}^N E_\theta( E_\theta( z_{ik}X_i X_i^T|Z_{ik}))$\\
+$E_\theta( z_{ik}X_i X_i^T|Z_{ik})=E_\theta(X_i X_i^T)=\Sigma_k+\mu_k\mu_k^T $ \\
+as covariance$(X_i),\Sigma_i=E(X_i X_i^T)-E(X_i)E(X_i^T)$\\
+$\Sigma_{i=1}^N E_\theta( E_\theta( z_{ik}X_i X_i^T|Z_{ik}))=\Sigma_{i=1}^N E_\theta(\Sigma_k+\mu_k\mu_k^T)$\\
+$=\Sigma_{i=1}^N \pi_k (\Sigma_i+\mu_i\mu_i^T)=N\pi_k (\Sigma_i+\mu_i\mu_i^T)= N_k (\Sigma_i+\mu_i\mu_i^T)$ (13)\\
+$E_{\theta_0}(\Sigma_{i=1}^N z_{ik}X_i X_i^T|X_i=x_i)=\Sigma_{i=1}^N \gamma_{ik}X_iX_i^T$ (14)\\
+Substituting eq. 13 and 14 in 12,\\
+$N_K(\Sigma_i+\mu_i\mu_i^T)=\Sigma_{i=1}^N \gamma_{ik}X_iX_i^T$\\
+Therefore $\Sigma_i=\frac{1}{N_k}(\Sigma_{i=1}^N \gamma_{ik}X_iX_i^T-\mu_i\mu_i^T)$\\
+\\

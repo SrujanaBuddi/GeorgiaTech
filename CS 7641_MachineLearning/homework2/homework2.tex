@@ -1,0 +1,387 @@
+\documentclass[twoside,10pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,fullpage}
+%\usepackage{../mymath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+
+\def\argmin{\operatornamewithlimits{arg\, min}}
+
+\begin{document}
+
+\title{CS 7641 CSE/ISYE 6740 Homework 2}
+\author{Le Song}
+\date{Deadline: 10/10 Mon, 11:55 pm
+} \maketitle
+
+\begin{itemize}
+  \item Submit your answers as an electronic copy on T-square.
+  \item No unapproved extension of deadline is allowed. Late
+  submission will lead to 0 credit.
+  \item Typing with Latex is highly recommended. Typing with MS Word is also okay.
+  If you handwrite, try to be clear as much as possible. No credit may be given to unreadable handwriting.
+  \item Explicitly mention your collaborators if any.
+  \item Recommended reading: PRML\footnote{Christopher M. Bishop, Pattern Recognition and Machine
+Learning, 2006, Springer.} Section 1.5, 1.6, 2.5, 9.2, 9.3
+
+\end{itemize}
+
+
+\section{EM for Mixture of Gaussians}
+Mixture of $K$ Gaussians is represented as
+\begin{equation}
+p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k,
+\Sigma_k),\label{eq:mixgauss}
+\end{equation}
+where $\pi_k$ represents the probability that a data point belongs
+to the $k$th component. As it is probability, it satisfies $0 \le
+\pi_k \le 1$ and $\sum_k \pi_k = 1$. In this problem, we are going
+to represent this in a slightly different manner with explicit
+latent variables. Specifically, we introduce 1-of-$K$ coding
+representation for latent variables $z^{(k)} \in \mathbb{R}^K$ for
+$k = 1, ..., K$. Each $z^{(k)}$ is a binary vector of size $K$, with
+1 only in $k$th element and 0 in all others. That is,
+\begin{align}
+z^{(1)} &= [1; 0; ... ; 0]\nonumber\\
+z^{(2)} &= [0; 1; ... ; 0]\nonumber\\
+&\vdots\nonumber\\ z^{(K)} &= [0; 0; ... ; 1]\nonumber.
+\end{align}
+For example, if the second component generated data point $x^n$, its
+latent variable $z^n$ is given by $[0; 1; ... ; 0] = z^{(2)}$. With
+this representation, we can express $p(z)$ as
+\begin{equation}
+p(z) = \prod_{k=1}^K {\pi_k}^{z_k},\nonumber
+\end{equation}
+where $z_k$ indicates $k$th element of vector $z$. Also, $p(x|z)$
+can be represented similarly as
+\begin{equation}
+p(x|z) = \prod_{k=1}^K \mathcal{N}(x|\mu_k,
+\Sigma_k)^{z_k}.\nonumber
+\end{equation}
+By the sum rule of probability, \eqref{eq:mixgauss} can be
+represented by
+\begin{equation}
+p(x) = \sum_{z \in Z} p(z) p(x|z).\label{eq:mixgauss2}
+\end{equation}
+where $Z = \{z^{(1)}, z^{(2)}, ..., z^{(K)}\}$.
+
+\subsubsection*{(a) Show that \eqref{eq:mixgauss2} is equivalent to
+\eqref{eq:mixgauss}. [5 pts]}
+
+\subsubsection*{(b) In reality, we do not know which component each
+data point is from. Thus, we estimate the responsibility
+(expectation of $z_k^n$) in the E-step of EM. Since $z_k^n$ is either $1$ or $0$, its expectation is the
+probability for the point $x_n$ to belong to the component $z_k$. In
+other words, we estimate $p(z_k^n|x_n)$. Derive the formula for this
+estimation by using Bayes rule. Note that, in the E-step, we assume all other parameters, i.e. $\pi_k$, $\mu_k$,
+and $\Sigma_k$, are fixed, and we want to express $p(z_k^n|x_n)$ as a function of these fixed parameters. [10 pts]}
+
+\subsubsection*{(c) In the M-Step, we re-estimate parameters $\pi_k$, $\mu_k$,
+and $\Sigma_k$ by maximizing the log-likelihood. Given $N$ i.i.d (Independent
+Identically Distributed) data samples, derive the update formula for
+each parameter. Note that in order to obtain an update rule for the M-step, we fix the responsibilities, i.e. $p(z_k^n|x_n)$, which we have already calculated in the E-step. [15 pts]}
+
+\emph{Hint:} Use Lagrange multiplier for $\pi_k$ to apply
+constraints on it.
+
+\subsubsection*{(d) EM and K-Means [10 pts]}
+K-means can be viewed as a particular limit of EM for Gaussian
+mixture. Considering a mixture model in which all components have
+covariance $\epsilon I$, show that in the limit $\epsilon\to 0$,
+maximizing the expected complete data log-likelihood for this model
+is equivalent to minimizing objective function in K-means:
+
+\begin{equation}
+J = \sum_{n=1}^N\sum_{k=1}^K\gamma_{nk}\|x_n-\mu_k\|^2,\nonumber
+\end{equation}
+where $\gamma_{nk} = 1$ if $x_n$ belongs to the $k$-th cluster and $\gamma_{nk} = 0$ otherwise.
+
+%\subsubsection*{(e) General setting [10 pts]}
+%
+%Consider a mixture of distribution of the form
+%\begin{equation}
+%P(x) = \sum_{k=1}^K \pi_k p(x|k)\nonumber
+%\end{equation}
+%where the elements of $x$ could be discrete or continuous or a
+%combination of these. Express the mean and covariance of the mixture
+%distribution using the mean $\mu_k$ and covariance $\Sigma_k$ of
+%each component distribution $p(x|k)$.
+
+\vspace{1cm}
+
+
+\iffalse
+\section{Mixture of Bernoulli Distributions}
+In this problem, we are going to derive the EM algorithm for a
+different mixture model, mixture of Bernoulli distributions. We use
+the same 1-of-$K$ coding scheme, which we introduced in Problem 1.
+
+First, the definition of Bernoulli distribution is given by
+\begin{equation}
+p(x|\mu) = \prod_{i=1}^D \mu_i^{x_i} (1 - \mu_i)^{1 - x_i}.\nonumber
+\end{equation}
+A mixture of $K$ Bernoulli distribution components can be expressed
+as
+\begin{equation}
+p(x|\mu, \pi) = \sum_{k=1}^K \pi_k \prod_{i=1}^D \mu_i^{x_i} (1 -
+\mu_i)^{1 - x_i},\nonumber
+\end{equation}
+where $\pi_k$ represents the probability for a data point to belong
+to the $k$th component. As it is probability, $\sum_k \pi_k = 1$.
+
+\subsubsection*{(a) Rewrite the formula $p(X, Z|\mu, \pi)$
+(now we have $Z$ in the arguments) for mixture of Bernoulli
+distributions with 1-of-$K$ coding for latent variables. [5 pts]}
+
+\subsubsection*{(b) Suppose we have $N$ i.i.d (Independent Identically
+Distributed) data samples from the distribution in (a). Write down
+the log-likelihood function $\ln p(X, Z|\mu, \pi)$. [5 pts]}
+
+\subsubsection*{(c) In E-Step, we re-evaluate responsibility of each
+component using Bayes' theorem. Write down the update formula for
+$\mathbb{E}[z_k^n]$. [5 pts]}
+
+\subsubsection*{(d) In M-Step, we re-estimate parameters $\mu$ and $\pi$
+by maximizing the expected complete-data log-likelihood with respect
+to them. Derive the update formula for both $\mu_k$ and $\pi_k$. [10
+pts]}
+
+\vspace{1cm} \fi
+
+
+\section{Density Estimation}
+
+Consider a histogram-like density model in which the space $x$ is
+divided into fixed regions for which density $p(x)$ takes constant
+value $h_i$ over $i$th region, and that the volume of region $i$ in
+denoted as $\Delta_i$. Suppose we have a set of $N$ observations of
+$x$ such that $n_i$ of these observations fall in regions $i$.
+
+\subsubsection*{(a) What is the log-likelihood function? [8 pts]}
+
+
+\subsubsection*{(b) Derive an expression for the maximum likelihood estimator for {$h_i$}. [10 pts]}
+
+\emph{Hint:} This is a constrained optimization problem. Remember that $p(x)$ must integrate to unity. Since
+$p(x)$ has constant value $h_i$ over region $i$, which has volume
+$\Delta_i$. The normalization constraint is $\sum_i h_i\Delta_i =
+1$. Use Lagrange multiplier by adding
+$\lambda\left(\sum_ih_i\Delta_i-1\right)$ to your objective function.
+
+\subsubsection*{(c) Mark $T$ if it is always true, and $F$ otherwise. Briefly explain why. [12 pts]}
+
+\begin{itemize}
+  \item Non-parametric density estimation usually does not have parameters.
+  \item The Epanechnikov kernel is the optimal kernel function for all data.
+  \item Histogram is an efficient way to estimate density for high-dimensional data.
+  \item Parametric density estimation assumes the shape of probability density.
+\end{itemize}
+
+\vspace{1cm}
+
+
+\section{Information Theory}
+In the lecture you became familiar with the concept of entropy for one random variable and mutual information. For a pair of discrete random variables $X$ and $Y$ with the joint distribution $p(x,y)$, the \emph{joint entropy} $H(X,Y)$ is defined as
+\begin{equation}
+H(X,Y)=-\sum_{x\in X}\sum_{y\in Y}{p(x,y)\log p(x,y)}
+\end{equation}
+which can also be expressed as
+\begin{equation}
+H(X,Y)=-\mathbb{E}[\log p(X,Y)]
+\end{equation}
+Let $X$ and $Y$ take on values $x_1,x_2,...,x_r$ and $y_1,y_2,...,y_s$ respectively. Let Z also be a discrete random variable and $Z=X+Y$.
+\newline
+\newline
+\textbf{(a)} Prove that $H(X,Y)\leq H(X)+H(Y)$ [4 pts] \newline\newline
+%\textbf{(b)} If $X$ and $Y$ are independent, i.e. $P(X,Y)=P(X)P(Y)$, then $H(X,Y)=H(X)+H(Y)$ [4 pts] \newline\newline
+\textbf{(b)} Show that $I(X;Y)=H(X)+H(Y)-H(X,Y)$. [2 pts] \newline\newline
+%\textbf{(d)} Show that $H(Z|X)=H(Y|X)$. Argue that when $X,Y$ are independent, then $H(X) \leq H(Z)$ and $H(Y) \leq H(Z)$. Therefore, the addition of \emph{independent} random variables add uncertainty. [4 pts] \newline\newline
+\textbf{(c)} Under what conditions does $H(Z)=H(X)+H(Y)$. [4 pts] 
+
+\vspace{1cm}
+%
+%\section{Bayes Classifier}
+%\subsection{\label{bcwglf} Bayes Classifier With General Loss Function}
+%In class, we talked about the popular 0-1 loss function in which $L(a,b) = 1$ for $a\neq b$ and 0 otherwise, which means all wrong predictions cause equal loss. Yet, in many other cases including cancer detection, the asymmetric loss is often preferred (misdiagnosing cancer as no-cancer is much worse). In this problem, we assume to have such an asymmetric loss function where $L(a,a) = L(b,b) = 0$ and $L(a,b)=p, L(b,a) = q, p\neq q$. Write down
+%the the Bayes classifier $f:X\rightarrow Y$ for binary
+%classification $Y\in\{-1,+1\}$. Simplify the classification rule as much as you can. [20
+%pts]
+%
+%\subsection{Gaussian Class Conditional distribution}
+%\paragraph{(a)} Suppose the class conditional distribution is a Gaussian.
+%Based on the general loss function in problem \ref{bcwglf}, write
+%the Bayes classifier as $f(X) = \text{sign}(h(X))$ and simplify $h$
+%as much as possible. What is the geometric shape of the decision
+%boundary? [10 pts]
+%
+%\paragraph{(b)} Repeat (a) but assume the two Gaussians have identical
+%covariance matrices. What is the geometric shape of the decision
+%boundary? [10 pts]
+%
+%\paragraph{(c)} Repeat (a) but assume now that the two Gaussians have covariance
+%matrix which is equal to the identity matrix. What is the geometric
+%shape of the decision boundary? [10 pts]
+
+
+
+
+
+\section{Programming: Text Clustering}
+
+In this problem, we will explore the use of EM algorithm for text
+clustering. Text clustering is a technique for unsupervised document
+organization, information retrieval. We want to find how to group a
+set of different text documents based on their topics. First we will
+analyze a model to represent the data.
+
+\subsubsection*{Bag of Words}
+The simplest model for text documents is to understand them as a
+collection of words. To keep the model simple, we keep the
+collection unordered, disregarding grammar and word order. What we
+do is counting how often each word appears in each document and
+store the word counts into a matrix, where each row of the matrix
+represents one document. Each column of matrix represent a specific
+word from the document dictionary. Suppose we represent the set of
+$n_d$ documents using a matrix of word counts like this:
+
+\begin{equation}
+D_{1:n_d} =  \begin{pmatrix} 2&6&...&4\\ 2 & 4&...&0\\\vdots&
+&\ddots \end{pmatrix} = T\nonumber
+\end{equation}
+This means that word $W_1$ occurs twice in document $D_1$ . Word
+$W_{n_w}$ occurs 4 times in document $D_1$ and not at all in
+document $D_2$.
+
+\subsubsection*{Multinomial Distribution}
+
+The simplest distribution representing a text document is
+multinomial distribution(Bishop Chapter 2.2). The probability of a
+document $D_i$ is:
+
+\begin{equation}
+p(D_i) = \prod_{j=1}^{n_w} \mu_j^{T_{ij}}\nonumber
+\end{equation}
+Here, $\mu_j$ denotes the probability of a particular word in the
+text being equal to $w_j$, $T_{ij}$ is the count of the word in
+document. So the probability of document $D_1$ would be $p(D_1)=
+\mu_1^2\cdot\mu_2^6\cdot...\cdot\mu_{n_w}^4\cdot$
+
+\subsubsection*{Mixture of Multinomial Distributions}
+
+In order to do text clustering, we want to use a mixture of
+multinomial distributions, so that each topic has a particular
+multinomial distribution associated with it, and each document is a
+mixture of different topics. We define $p(c) = \pi_c $  as the
+mixture coefficient of a document containing topic $c$, and each topic
+is modeled by a multinomial distribution $p(D_i|c)$ with parameters
+$\mu_{jc}$, then we can write each document as a mixture over topics
+as
+
+
+\begin{equation}
+p(D_i) = \sum_{c=1}^{n_c} p(D_i|c)p(c) = \sum_{c=1}^{n_c} \pi_c
+\prod_{j=1}^{n_w} \mu_{jc}^{T_{ij}}\nonumber
+\end{equation}
+
+\subsubsection*{EM for Mixture of Multinomials}
+
+In order to cluster a set of documents, we need to fit this mixture
+model to data. In this problem, the EM algorithm can be used for
+fitting mixture models. This will be a simple topic model for
+documents. Each topic is a multinomial distribution over words (a
+mixture component). EM algorithm for such a topic model, which
+consists of iterating the following steps:
+
+\begin{enumerate}
+\item Expectation
+
+Compute the expectation of document $D_i$ belonging to cluster $c$:
+
+\begin{equation}
+\gamma_{ic} =  \frac{\pi_c \prod_{j=1}^{n_w}
+\mu_{jc}^{T_{ij}}}{\sum_{c=1}^{n_c} \pi_c \prod_{j=1}^{n_w}
+\mu_{jc}^{T_{ij}}}\nonumber
+\end{equation}
+
+\item Maximization
+
+Update the mixture parameters, i.e. the probability of a word being
+$W_j$ in cluster (topic) $c$, as well as prior probability of each
+cluster.
+
+
+\begin{equation}
+\mu_{jc} =
+\frac{\sum_{i=1}^{n_d}\gamma_{ic}T_{ij}}{\sum_{i=1}^{n_d}\sum_{l=1}^{m_w}
+\gamma_{ic}T_{il}}\nonumber
+\end{equation}
+
+\begin{equation}
+ \pi_c = \frac{1}{n_d}
+\sum_{i=1}^{n_d}\gamma_{ic}\nonumber
+\end{equation}
+
+\end{enumerate}
+
+
+\subsubsection*{Task [20
+pts]}
+
+Implement the algorithm and run on the toy dataset \texttt{data.mat}. You
+can find detailed description about the data in the
+\texttt{homework2.m} file. Observe the results and compare them with
+the provided true clusters each document belongs to. Report the
+evaluation (e.g. accuracy) of your implementation.
+
+\emph{Hint:} We already did the word counting for you, so the data
+file only contains a count matrix like the one shown above. For the toy dataset, set the
+number of clusters $n_c = 4$. You will need to initialize the
+parameters. Try several different random initial values for the
+probability of a word being $W_j$ in topic $c$, $\mu_{jc}$. Make
+sure you normalized it. Make sure that you should not use the true
+cluster information during your learning phase.
+
+
+\subsubsection*{Extra Credit: Realistic Topic Models [20pts]}
+The above model assumes all the words in a document belongs to some topic at the same time. However, in real world datasets, it is more likely that
+some words in the documents belong to one topic while other words belong to some other topics. For example, in a news report, some words may talk about ``Ebola'' and ``health'', while others may mention ``administration'' and ``congress''. In order to model this phenomenon, we should model each word as a mixture of possible topics.
+
+Specifically, consider the log-likelihood of the joint distribution of document and words
+\begin{equation}
+\mathcal{L} = \sum_{d\in \mathcal{D}}\sum_{w \in \mathcal{W}} T_{dw} \log P(d, w),
+\end{equation}
+where $T_{dw}$ is the counts of word $w$ in the document $d$. This count matrix is provided as input.
+
+The joint distribution of a specific document and a specific word is modeled as a mixture
+\begin{equation}
+P(d, w) = \sum_{z \in \mathcal{Z}} P(z) P(w|z) P(d|z),
+\end{equation}
+where $P(z)$ is the mixture proportion, $P(w|z)$ is the distribution over the vocabulary for the $z$-th topic, and $P(d|z)$ is the probability of the document for the $z$-th topic. And these are the parameters for the model.
+
+The E-step calculates the posterior distribution of the latent variable conditioned on all other variables
+\begin{equation}
+P(z|d, w) = \frac{P(z) P(w|z) P(d|z)}{\sum_{z'}P(z') P(w|z') P(d|z')}.
+\end{equation}
+
+In the M-step, we maximizes the expected complete log-likelihood with respect to the parameters, and get the following update rules
+\begin{align}
+P(w|z) &= \frac{\sum_{d} T_{dw} P(z|d,w)}{\sum_{w'}\sum_{d} T_{dw'} P(z|d,w')} \\
+P(d|z) &=  \frac{\sum_{w} T_{dw} P(z|d,w)}{\sum_{d'}\sum_{w} T_{d'w} P(z|d',w)} \\
+P(z) &= \frac{\sum_{d}\sum_{w} T_{dw} P(z|d,w)}{\sum_{z'}\sum_{d'}\sum_{w'} T_{d'w'} P(z'|d',w')} .
+\end{align}
+
+\subsection*{Task}
+ Implement EM for maximum likelihood estimation and cluster the
+text data provided in the \texttt{nips.mat} file you downloaded. You can print out the top key words for the topics/clusters 
+by using the \texttt{show\_topics.m} utility. It takes two parameters: 1) your learned conditional distribution matrix, i.e., $P(w|z)$ and
+2) a cell array of words that corresponds to the vocabulary. You can find the cell array \texttt{wl} in the \texttt{nips.mat} file.
+Try different values of $k$ and see which values produce sensible topics. In assessing your code, we will use another dataset and 
+observe the produces topics.
+
+%\bibliographystyle{plain}
+%\bibliography{temp,externalPapers,groupPapers}
+
+\end{document}
