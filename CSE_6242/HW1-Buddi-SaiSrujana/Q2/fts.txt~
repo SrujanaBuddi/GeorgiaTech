@@ -1,0 +1,2 @@
+create virtual table rt.movie_overview using fts3(id integer, name text, year integer, overview text,popularity decimal);
+

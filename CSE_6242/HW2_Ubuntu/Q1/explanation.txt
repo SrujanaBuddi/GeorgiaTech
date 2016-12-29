@@ -1,0 +1,4 @@
+Q1 
+a. I am using HTML to build table and removing all the columns without any data
+
+b. For each originating country, I am plotting all the asylum locations as bin and the tool tip shows the number of males and females.

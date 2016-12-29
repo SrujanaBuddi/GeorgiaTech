@@ -1,0 +1,42 @@
+<!DOCTYPE html5>
+<html lang='en'>
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Table Creation</title>
+		<style>
+		    table{
+			border-collapse:collapse;
+			border:2px black solid;
+			font:12px sans-serif;
+			}
+		     td{
+			border: 1px black solid;
+			padding:5px;
+			}
+		</style>	
+	</head>
+	<body>
+
+		<script src ="../lib/d3.v3.min.js"></script>
+
+		<script type="text/javascript"charset="utf-8">
+			d3.text("unhcr_persons_of_concern.csv",function(data){
+			var parsedCSV=d3.csv.parseRows(data)
+			for (var i=0;i<parsedCSV.length;i++){
+				row=parsedCSV[i]
+			}				
+			var container=d3.select("body")
+			    .append("table")
+			     
+			    .selectAll("tr")
+				.data(parsedCSV).enter()
+				.append("tr")
+
+			    .selectAll("td")
+				.data(function(d) {return d;}).enter()
+				.append("td")
+				.text(function(d) {return d;})
+			});
+		</script>
+	</body>
+</html>

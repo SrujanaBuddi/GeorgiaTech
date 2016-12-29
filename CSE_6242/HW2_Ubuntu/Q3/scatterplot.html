@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<style>
+<title>Scatter Plot</title>
+</style>
+
+<body>
+<script>
+
+var margin={top:20,right:20,bottom:20,left:130}
+    width = 750,
+    height = 280;
+
+//setup x
+var xVal1 = function(d) { return d.sepalLength;},
+    xScale = d3.scale.linear().range([0, width]),
+    xMap1 = function(d) { return xScale(xVal1(d));}, 
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    xVal2 = function(d) { return d.petalLength;},
+    xMap2 = function(d) { return xScale(xVal2(d));};
+
+// setup y
+var yVal1 = function(d) { return d["sepalWidth"];},
+    yScale = d3.scale.linear().range([height,0]), 
+    yMap1 = function(d) { return yScale(yVal1(d));}, 
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+    yVal2 = function(d) { return d["petalWidth"];},
+    yMap2 = function(d) { return yScale(yVal2(d));};
+
+// setup fill color
+var cVal1 = function(d) { return d.species;},
+    color = d3.scale.category10();
+
+//console.log(color.domain())
+
+//load data
+d3.tsv("iris.tsv",function(error,data){
+data.forEach(function(d){
+       d.sepalLength = +d.sepalLength;
+       d.sepalWidth = +d["sepalWidth"];
+       d.petalLength = +d.petalLength;
+       d.petalWidth = +d["petalWidth"]	})
+
+//append SVG
+var t = document.createTextNode("Sepal Length Vs Sepal width");
+var svg = d3.select("body").append("svg")
+			.attr("width", width+margin.left+margin.right)
+			.attr("height", height+margin.top+margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//adding title
+svg.append("text")
+        .attr("x", (width / 2)-20)             
+        .attr("y", 5 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "20px") 
+        .style("text-decoration", "underline")  
+        .text("Sepal Length Vs Sepal Width");
+
+// scaling axis
+  xScale.domain([d3.min(data, xVal1)-1, d3.max(data, xVal1)+1]);
+  yScale.domain([d3.min(data, yVal1)-1, d3.max(data, yVal1)+1]);
+
+// x-axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -4)
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("Sepal Length");
+
+ // y-axis
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", -30)
+      .attr("y", height/2.0)
+      .attr("dy", ".7lem")
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("Sepal Width");
+
+// define the nodes
+  svg.selectAll(".point")
+    .data(data)
+   .enter().append("path")
+    .attr("class","point")
+    .attr("transform", function(d) { return "translate(" + xMap1(d) +  "," + yMap1(d) + ")"; })
+    .attr("d",d3.svg.symbol().size(function(d){return 50;})//xMap1(d)*xMap1(d)/1000}) size corresponding to length
+.type(function(d){if (d.species === "setosa") 
+           	 return "circle";
+        	if (d.species === "versicolor") 
+         	return "triangle-down";
+		else 
+		return "diamond";}))
+    .style("fill", function(d) { return color(cVal1(d));}) 
+
+  // draw legend
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("y",height-75)
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", color);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", height-70)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;})   
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//append SVG2 (for second plot)
+var svg2 = d3.select("body").append("svg")
+			.attr("width", width+margin.left+margin.right)
+			.attr("height",height+margin.top+margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//adding title
+svg2.append("text")
+        .attr("x", (width / 2)-10)             
+        .attr("y", 5 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "20px") 
+        .style("text-decoration", "underline")  
+        .text("Petal Length Vs Petal Width");
+
+// scaling axis
+  xScale.domain([d3.min(data, xVal2)-0.2, d3.max(data, xVal2)+1]);
+  yScale.domain([d3.min(data, yVal2), d3.max(data, yVal2)+1]);
+
+// x-axis
+  svg2.append("g")
+      .attr("class", "x axis")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("Petal Length");
+
+ // y-axis
+  svg2.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", -30)
+      .attr("y", height/2.0)
+      .attr("dy", ".7lem")
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("Petal Width");
+
+// define the nodes
+svg2.selectAll(".point")
+    .data(data)
+   .enter().append("path")
+    .attr("class","point")
+    .attr("transform", function(d) { return "translate(" + xMap2(d) +  "," + yMap2(d) + ")"; })
+    .attr("d",d3.svg.symbol().size(function(d){return 50})//xMap1(d)*xMap1(d)/4500})
+.type(function(d){if (d.species === "setosa") 
+           	 return "circle";
+        	if (d.species === "versicolor") 
+         	return "triangle-down";
+		else 
+		return "diamond";}))
+    .style("fill", function(d) { return color(cVal1(d));})  
+
+
+  // draw legend
+  var legend = svg2.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+     .attr("x", width - 18)
+     .attr("y",height-40)
+     .attr("width", 10)
+     .attr("height", 10)
+     .style("fill", color);
+
+//legend.selectAll(".legend").enter()
+//      .append("path")
+//                .type(function(d){if (d=== "setosa") 
+//           	 return "circle";
+//        	if (d === "versicolor") 
+//         	return "triangle-down";
+//		else 
+//		return "diamond";})
+
+
+  //legend text
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", height-35)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;}) 
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Horizontal Bar Chart</title>
+	<style>
+	</style>
+</head>
+<body>
+
+	<script src="../lib/d3.v3.min.js" charset="utf-8"></script>
+
+​	<script> 
+//reading data and storing it
+	var data=[{product:'Product A',freq:{Q1:716, Q2:1287, Q3:249, Q4:324}}
+		,{product:'Product B',freq:{Q1:2000, Q2:1876, Q3:3009, Q4:973}}
+		,{product:'Product C',freq:{Q1:899, Q2:2333, Q3:418, Q4:213}}
+		,{product:'Product D',freq:{Q1:989, Q2:1543, Q3:1862, Q4: 1111}}
+		,{product:'Product E',freq:{Q1:4200, Q2:3220, Q3:948, Q4: 629}}
+		,{product:'Product F',freq:{Q1:1321, Q2:156, Q3:212, Q4: 821}}
+		,{product:'Product G',freq:{Q1:1977, Q2:247, Q3:1203, Q4: 562}}
+		,{product:'Product H',freq:{Q1:2498, Q2:2852, Q3:942, Q4: 444}}];
+	
+var q_data=[{Q1:716,Q2:1287,Q3:249,Q4:324},{Q1:2000,Q2:1876,Q3:3009,Q4:973},{Q1:899,Q2:2333,Q3:418,Q4:213},{Q1:989,Q2:1543,Q3:1862,Q4:1111},{Q1:4200,Q2:3220,Q3:948,Q4:629},{Q1:1321,Q2:156,Q3:212,Q4:821},{Q1:1977,Q2:247,Q3:1203,Q4:562},{Q1:2498,Q2:2852,Q3:942,Q4:444}]
+
+var products=['Product A','Product B','Product C','Product D','Product E','Product F','Product G','Product H']
+var revenue=[716+1287+249+324,2000+1876+3009+973,899+2333+418+213,989+1543+1862+1111,4200+3220+948+629,1321+156+212+821,1977+247+1203+562,2498+2852+942+444]
+
+	</script>
+<h2>Company FooBar Revenue generated for Year 2015 </h2>
+	<script>
+		
+		var div = d3.select("body").append("div").attr("class", "toolTip");
+
+		var margin = {top: 20, right: 90, bottom: 30, left: 50},
+				width = 1200 - margin.left - margin.right,
+    				height = 500 - margin.top - margin.bottom,
+				barHeight=30,
+				barSpacing=25
+				labelWid=0;
+
+		var xscale = d3.scale.linear().domain([0,d3.max(revenue)]).range([0,700]);
+		var yscale = d3.scale.ordinal().range([0,width]);
+
+		var xAxis=d3.svg.axis().scale(xscale).orient("bottom");
+		var yAxis=d3.svg.axis().scale(yscale).orient("left");
+
+
+		var svg=d3.select('body')
+			  .append('svg')
+			  .attr("width",width)
+			  .attr("height",height)
+
+
+		var svg1=svg.selectAll("g")			  
+			  .data(data)
+			  .enter().append("g")
+			  .attr("class","bar")
+    			  .attr("transform", function(d,i){return "translate(" + 20 + ","+(i*(barHeight+barSpacing))+ ")"})
+			  .style({'stroke':'#adadad','stroke-width':'1px'});
+			
+		svg1.append("rect")
+			.attr("height",barHeight)
+			.attr("x",80)
+			.attr("fill","grey")
+			.attr("width",function(d){reset_legend();return xscale(d.freq.Q1+d.freq.Q2+d.freq.Q3+d.freq.Q4);})
+			.attr("transform", "translate("+labelWid+", 0)")
+			.on("mouseover",function(d){d3.select(this).attr("fill","steelblue");svg.selectAll(".legend").remove();disp_legend(d);})
+			.on("mouseout",function(d){d3.select(this).attr("fill","grey");svg.selectAll(".legend").remove();reset_legend();})
+
+		svg1.append("text")
+            			.attr("class", "label")
+            			.attr("y", 10)
+				.attr("x",-5)
+            			.attr("dy", ".35em")
+            			.text(function(d){ return d.product;}).each(function() {
+       									 labelWidth = Math.ceil(Math.max(labelWid, this.getBBox().width));});
+
+		svg1.append("text")
+			.attr("class", "value")
+        		.text(function(d){return '$'+(d.freq.Q1+d.freq.Q2+d.freq.Q3+d.freq.Q4);})
+			.attr("x",function(d){return 75+xscale(d.freq.Q1+d.freq.Q2+d.freq.Q3+d.freq.Q4);})
+			.style("font-size", "15px")
+      			.attr("y", 15)
+      			.attr("dy", ".35em")
+			.attr("transform", "translate("+labelWid+", 0)")
+			.attr("fill","white")
+      			.style("text-anchor", "end");
+
+function disp_legend(d){
+		freq=d.freq;
+		total=freq.Q1+freq.Q2+freq.Q3+freq.Q4;
+		legend_data=[];
+		Q1=freq.Q1;Q2=freq.Q2;Q3=freq.Q3;Q4=freq.Q4;
+		for (i=1;i<=4;i++)
+		{
+			var obj={Quarter:'Q'+(i),Revenue:this["Q"+i],percentage:Math.ceil((100*this["Q"+i])/total)}
+			legend_data.push(obj);
+		}
+var legend = svg.selectAll(".legend")
+    .data(legend_data)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+
+    legend.append("text")
+    .attr("x", width - 200)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return d.Quarter;});
+    
+     legend.append("text")
+    .attr("x", width - 150)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return  '$'+d.Revenue;});
+
+     legend.append("text")
+    .attr("x", width - 80)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return  d.percentage+'%';});
+       
+}
+function reset_legend(){
+		var data1=[];
+		rev=['',14600,13514,8843,5077];
+		sum_rev=rev[1]+rev[2]+rev[3]+rev[4];
+		for (i=1;i<=4;i++)
+		{
+			var obj={Quarter:'Q'+(i),Revenue:rev[i],percentage:Math.ceil((100*rev[i])/sum_rev)}
+			data1.push(obj);
+		}
+
+var legend = svg.selectAll(".legend")
+    .data(data1)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });   
+
+
+    legend.append("text")
+    .attr("x", width - 200)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return d.Quarter;});
+    
+     legend.append("text")
+    .attr("x", width - 150)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return  '$'+d.Revenue;});
+
+     legend.append("text")
+    .attr("x", width - 80)
+    .attr("y", height-100)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start").style("font-size", "15px").text(function(d) { return  d.percentage+'%';});
+
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Test</title>
+		<script type="text/javascript" src="../d3/d3.v3.min.js"></script>
+		<style type="text/css">
+		div.bar {
+				display: inline-block;
+				width: 30px;
+				height: 75px;
+				background-color: teal;
+				margin-right:2px;
+				border:2px solid black
+			}
+		</style>
+	</head>
+	<body>
+		<h1> Sai Srujana Buddi</h1>
+		<script type="text/javascript">
+			
+			//var dataset=[25, 7, 5, 26, 11, 8, 25, 14, 23, 19,14, 11, 22, 29, 11, 13, 12, 17, 18, 10,24, 18, 25, 9, 3 ];
+			var dataset=[];
+			for (var i=0;i<25;i++) {
+			var no=Math.random()*30;
+			dataset.push(no);
+			}
+			//d3.select("body").selectAll("p").data(dataset).enter().append("p")/*.text("New paragraph!")*/.text(function(d) {return "I can count upto " +d}).style("color",function(d){if (d>15){return "red";}else{return "blue";}});
+			
+			d3.select("body").selectAll("div").data(dataset).enter().append("div").attr("class","bar").style("height",function(d){var h=5*d;return h+"px";}).style("background-color",function(d,i){if(d==dataset[0]||d==dataset[5]||d==dataset[10]||d==dataset[15]||d==dataset[20]){color = "#"+((1<<24)*Math.random()|0).toString(16);}return color;});
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+	<meta charset="utf-8">
+
+	<title>Making a bar chart — Scott Murray — alignedleft</title>
+	
+	<meta name="description" content="Design, data, visualization, culture.">
+	<meta name="keywords" content="code, art, design, data, visualization, generative, algorithmic, processing, p5, d3, d3.js, book, maps">
+	<meta name="robots" content="index, follow">
+
+	<link rel="alternate" type="application/rss+xml" href="http://alignedleft.com/tutorials/d3/feed">
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/screen.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/tutorial.css">
+	<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/narrow.css">
+	<meta name="viewport" content="initial-scale=1.0">
+
+	
+	
+</head>
+
+<body class="tutorial">
+
+	
+	<header>
+		<h1><a href="http://alignedleft.com/">Scott Murray</a><!--<span class="prof">, designer</span>--></h1>
+		<nav>
+  <ul>
+        <li><a href="http://alignedleft.com/about">About</a></li>
+        <li><a href="http://alignedleft.com/work">Work</a></li>
+        <li><a class="active" href="http://alignedleft.com/tutorials">Tutorials</a></li>
+        <li><a href="http://alignedleft.com/resources">Resources</a></li>
+        <li><a href="http://alignedleft.com/talks">Talks</a></li>
+        <li><a href="http://alignedleft.com/contact">Contact</a></li>
+      </ul>
+</nav>	</header>
+
+	<!--[if lte IE 8]>
+		<div id="ie_warning"><strong>You&rsquo;re using an old version of Internet Explorer.</strong> Consider upgrading your browser to <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a>, or <a href="http://www.google.com/chrome">Chrome</a>, and experience a more beautiful web!</div>
+	<![endif]-->
+
+	<noscript>
+		<div id="js_warning"><strong>JavaScript is turned off, so this page won&rsquo;t be very interactive.</strong> Switch JavaScript back on in your web browser for the full experience.</div>
+	</noscript>
+
+<h3>
+	<a href="http://alignedleft.com/tutorials">Tutorials</a> &gt;
+	<a href="http://alignedleft.com/tutorials/d3">D3</a> &gt;
+	Making a bar chart</h3>
+
+<h2>Making a bar chart</h2>
+
+<div id="text">
+
+	<p class="timestamp">Last updated 2015 September 15</p>
+
+	<p>Now we’ll integrate everything we’ve learned so far to generate a simple bar chart with D3.</p>
+<p>We’ll start by reviewing the bar chart we made earlier using <code>div</code>
+ elements.  Then we’ll adapt that code to draw the bars with SVG 
+instead, giving us more flexibility over the visual presentation. 
+Finally, we’ll add labels, so we can see the data values clearly.</p>
+<h2>The Old Chart</h2>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/1.html">Here’s what we had last time, with some new data.</a></p>
+<pre><code>var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+                11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+
+d3.select("body").selectAll("div")
+    .data(dataset)
+    .enter()
+    .append("div")
+    .attr("class", "bar")
+    .style("height", function(d) {
+        var barHeight = d * 5;
+        return barHeight + "px";
+    });</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/1.png" alt="1" title="Bar chart with divs"></figure>
+<p>It may be hard to imagine, but we can definitely improve on this simple bar chart made of <code>div</code>s.</p>
+<h2>The New Chart</h2>
+<p>First things first, we need to decide on the size of the new SVG:</p>
+<pre><code>//Width and height
+var w = 500;
+var h = 100;</code></pre>
+<p>(Of course, you could name <code>w</code> and <code>h</code> something else, like <code>svgWidth</code> and <code>svgHeight</code>.
+ Use whatever is most clear to you. JavaScript has a cultural fixation 
+on efficiency, so you’ll often see single-character variable names, code
+ written with no spaces, and other hard-to-read, yet programmatically 
+efficient, syntax.)</p>
+<p>Then, we tell D3 to create an empty SVG element and add it to the DOM:</p>
+<pre><code>//Create SVG element
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);</code></pre>
+<p>This inserts a new <code>&lt;svg&gt;</code> element just before the closing <code>&lt;/body&gt;</code>
+ tag, and assigns the SVG a width and height of 500 by 100 pixels. This 
+statement also puts the result into our new variable called <code>svg</code>, so we can easily reference the new SVG without having to reselect it later using something like <code>d3.select("svg")</code>.</p>
+<p>Next, instead of creating <code>div</code>s, we generate <code>rect</code>s and add them to <code>svg</code>.</p>
+<pre><code>svg.selectAll("rect")
+   .data(dataset)
+   .enter()
+   .append("rect")
+   .attr("x", 0)
+   .attr("y", 0)
+   .attr("width", 20)
+   .attr("height", 100);</code></pre>
+<p>This code selects all <code>rect</code>s inside of <code>svg</code>. 
+Of course, there aren’t any yet, so an empty selection is returned. 
+(Weird, yes, but stay with me. With D3, you always have to first select 
+whatever it is you’re about to act on, even if that selection is 
+momentarily empty.)</p>
+<p>Then, <code>data(dataset)</code> sees that we have 20 values in the data set, so it calls <code>enter()</code> 20 times. <code>enter()</code>, in turn, returns a placeholder selection for each data point that does not yet have a corresponding <code>rect</code> —&nbsp;which is to say, all of them.</p>
+<p>For each of the 20 placeholders, <code>append("rect")</code> inserts a <code>rect</code> into the DOM. As we learned in the SVG primer, every <code>rect</code> must have <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code> values.  We use <code>attr()</code> to add those attributes onto each newly created <code>rect</code>.</p>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/2.html">Beautiful, no?</a></p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/2.png" alt="2" title="One lonely bar"></figure>
+<p>Okay, maybe not. All of the bars are there (check the DOM of <a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/2.html">the demo page</a> with your web inspector), but they all share the same <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code> values, with the result that they all overlap. This isn’t a visualization of data yet.</p>
+<p>Let’s fix the overlap issue first. Instead of an <code>x</code> of zero, we’ll assign a dynamic value that corresponds to <code>i</code>, or each value’s position in the data set. So the first bar will be at zero, but subsequent bars will be at <code>21</code>, then <code>42</code>, and so on.</p>
+<pre><code>.attr("x", function(d, i) {
+    return i * 21;  //Bar width of 20 plus 1 for padding
+})</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/3.png" alt="3" title="Twenty bars"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/3.html">Here’s that code in action.</a></p>
+<p>That works, but it’s not particularly flexible. If our data set were 
+longer, then the bars would just run off to the right, past the end of 
+the SVG! Since each bar is 20 pixels wide, plus 1 pixel of padding, then
+ a 500-pixel wide SVG can only accommodate 23 data points. Note how the 
+24th bar here gets clipped:</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/4.png" alt="4" title="Twenty-four bars"></figure>
+<p>It’s good practice to use flexible, dynamic coordinates — heights, 
+widths, x values, and y values —&nbsp;so your visualization can scale 
+appropriately along with your data.</p>
+<p>As with anything else in programming, there are a thousand ways to 
+achieve that end. I’ll use a simple one. First, I’ll amend the line 
+where we set each bar’s <code>x</code> position:</p>
+<pre><code>.attr("x", function(d, i) {
+    return i * (w / dataset.length);
+})</code></pre>
+<p>Notice how the <code>x</code> value is now tied directly to the width of the SVG (<code>w</code>) and the number of values in the data set (<code>dataset.length</code>). This is exciting, because now our bars will be evenly spaced, whether we have 20 data values</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/5.png" alt="5" title="Twenty evenly spaced bars"></figure>
+<p>or only five:</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/6.png" alt="6" title="Five evenly spaced bars"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/4.html">Here’s the working code so far.</a></p>
+<p>Now we should set the bar <em>widths</em> to be proportional, too, so
+ they get narrower as more data is added, or wider when there are fewer 
+values. I’ll add a new variable near where we set the SVG’s width and 
+height</p>
+<pre><code>//Width and height
+var w = 500;
+var h = 100;
+var barPadding = 1;  // &lt;-- New!</code></pre>
+<p>and then reference that variable in the line where we set each bar’s <code>width</code>.  Instead of a static value of <code>20</code>, the width will now be set as a fraction of the SVG width and number of data points, minus a padding value:</p>
+<pre><code>.attr("width", w / dataset.length - barPadding)</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/7.png" alt="7" title="Twenty evenly spaced bars with dynamic widths"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/5.html">It works!</a> The bar widths and x positions scale correctly whether there are 20 points, only five</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/8.png" alt="8" title="Five evenly spaced bars with dynamic widths"></figure>
+<p>or even 100:</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/9.png" alt="9" title="One hundred evenly spaced bars with dynamic widths"></figure>
+<p>Finally, we encode our data as the <em>height</em> of each bar. You would hope it were as easy as referencing the <code>d</code> data value when setting each bar’s <code>height</code>:</p>
+<pre><code>.attr("height", function(d) {
+    return d;
+});</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/10.png" alt="10" title="Dynamic heights"></figure>
+<p>Hmm, that looks funky. Maybe we can just scale up our numbers a bit?</p>
+<pre><code>.attr("height", function(d) {
+    return d * 4;  // &lt;-- Times four!
+});</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/11.png" alt="11" title="Dynamic heights"></figure>
+<p>Alas, it is not that easy — we want our bars to grow upward from the 
+bottom edge, not down from the top — but don’t blame D3, blame SVG.</p>
+<p>You’ll recall from the SVG primer that, when drawing <code>rect</code>s, the <code>x</code> and <code>y</code> values specify the coordinates of the <em>upper-left corner</em>.  That is, the origin or reference point for every <code>rect</code>
+ is its top-left.  For our purposes, it would be soooooo much easier to 
+set the origin point as the bottom-left corner, but that’s just not how 
+SVG does it, and, frankly, SVG is pretty indifferent about your feelings
+ on the matter.</p>
+<p>Given that our bars do have to “grow down from the top,” then where 
+is “the top” of each bar in relationship to the top of the SVG?  Well, 
+the top of each bar could be expressed as a relationship between the 
+height of the SVG and the corresponding data value, as in:</p>
+<pre><code>.attr("y", function(d) {
+    return h - d;  //Height minus data value
+})</code></pre>
+<p>Then, to put the “bottom” of the bar on the bottom of the SVG, each <code>rect</code>s height can be just the data value itself:</p>
+<pre><code>.attr("height", function(d) {
+    return d;  //Just the data value
+});</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/12.png" alt="12" title="Growing down from above"></figure>
+<p>Let’s scale things up a bit by changing <code>d</code> to <code>d * 4</code>. (Note: Later we’ll learn about D3 <em>scales</em>, which offer better ways to accomplish this.)</p>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/13.png" alt="13" title="Growing bigger from above"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/6.html">Here’s the working code for our growing-down-from-above bar chart.</a></p>
+<h2>Color</h2>
+<p>Adding color is easy.  Just use <code>attr()</code> to set a <code>fill</code>:</p>
+<pre><code>.attr("fill", "teal");</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/14.png" alt="14" title="Teal bars"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/7.html">Here’s an all-teal bar chart.</a>  But often, you’ll want a shape’s color to reflect some quality of the data.  That is, you may want to <em>encode</em> the data as color.  (In the case of our bar chart, that makes a <em>dual encoding</em>, in which the same data value is encoded in two different visual properties: height and color.)</p>
+<p>Using data to drive color is as easy as writing a custom function that again references <code>d</code>. Here, we replace <code>"teal"</code> with a custom function:</p>
+<pre><code>.attr("fill", function(d) {
+    return "rgb(0, 0, " + (d * 10) + ")";
+});</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/15.png" alt="15" title="Data-driven blue bars"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/8.html">Here’s that code.</a> This is not a particularly useful visual encoding, but you can get the idea of how to translate data into color. Here, <code>d</code> is multiplied by 10, and then used as the blue value in an <code>rgb()</code> color definition. So the greater values of <code>d</code> (taller bars) will be more blue. Smaller values of <code>d</code> (shorter bars) will be less blue (closer to black).</p>
+<h2>Labels</h2>
+<p>Visuals are great, but sometimes you need to show the actual data 
+values as text within the visualization. Here’s where value labels come 
+in, and they are very, very easy to generate with D3.</p>
+<p>You’ll recall from the SVG primer that you can add <code>text</code> elements to an SVG element. We‘ll start with:</p>
+<pre><code>svg.selectAll("text")
+   .data(dataset)
+   .enter()
+   .append("text")</code></pre>
+<p>Look familiar? Just as we did for the <code>rect</code>s, here we do for the <code>text</code>s.
+ First, select what you want, bring in the data, enter the new elements 
+(which are just placeholders at this point), and finally append the new <code>text</code> elements to the DOM.</p>
+<p>We’ll extend that code to include a data value within each <code>text</code> element by using the <code>text()</code> method</p>
+<pre><code>   .text(function(d) {
+        return d;
+   })</code></pre>
+<p>and then extend it further, by including <code>x</code> and <code>y</code> values to position the text. It’s easiest if I just copy and paste the same x/y code we used above for the bars:</p>
+<pre><code>   .attr("x", function(d, i) {
+        return i * (w / dataset.length);
+   })
+   .attr("y", function(d) {
+        return h - (d * 4);
+   });</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/16.png" alt="16" title="Baby value labels!"></figure>
+<p>Aha! Value labels! But some are getting cut off at the top. Let’s try
+ moving them down, inside the bars, by adding a small amount to the <code>x</code> and <code>y</code> calculations:</p>
+<pre><code>   .attr("x", function(d, i) {
+        return i * (w / dataset.length) + 5;  // +5
+   })
+   .attr("y", function(d) {
+        return h - (d * 4) + 15;              // +15
+   });</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/17.png" alt="17" title="In-bar value labels"></figure>
+<p>Better, but not legible. Fortunately, we can fix that:</p>
+<pre><code>   .attr("font-family", "sans-serif")
+   .attr("font-size", "11px")
+   .attr("fill", "white");</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/18.png" alt="18" title="Really nice value labels"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/9.html">Fantasti-code!</a>
+ If you are not typographically obsessive, then you’re all done. If, 
+however, you are like me, you’ll notice that the value labels aren’t 
+perfectly aligned within their bars. That’s easy enough to fix.  Let’s 
+use the SVG <code>text-anchor</code> attribute to center the text horizontally at the assigned <code>x</code> value:</p>
+<pre><code>    .attr("text-anchor", "middle")</code></pre>
+<p>Then, let’s change the way we calculate the <code>x</code> position by setting it to the left edge of each bar <em>plus</em> half the bar width:</p>
+<pre><code>    .attr("x", function(d, i) {
+        return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+    })</code></pre>
+<p>And I’ll also bring the labels up one pixel for perfect spacing:</p>
+<pre><code>    .attr("y", function(d) {
+        return h - (d * 4) + 14;  //15 is now 14
+    })</code></pre>
+<figure><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/19.png" alt="19" title="Centered labels"></figure>
+<p><a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart/10.html">Done!</a>  Now, let’s branch out from bar charts.</p>
+			<p class="next_up">Next up: <a href="http://alignedleft.com/tutorials/d3/making-a-scatterplot">Making a scatterplot</a> →</p>
+	
+	<p class="feedback">
+	<a href="http://www.jdoqocy.com/click-6754088-11260198?url=http%3A%2F%2Fshop.oreilly.com%2Fproduct%2F0636920026938.do%3Fcmp%3Daf-strata-books-videos-product_cj_9781449339739_%2525zp&amp;cjsku=0636920026938"><img src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/idvftw_cover.gif" alt="Interactive Data Visualization for the Web" border="0"></a>These tutorials have been expanded into a book, <em>Interactive Data Visualization for the Web</em>, published by O’Reilly in March 2013.  <a href="http://www.dpbolvw.net/click-6754088-11260198?url=http%3A%2F%2Fshop.oreilly.com%2Fproduct%2F0636920026938.do%3Fcmp%3Daf-strata-books-videos-product_cj_9781449339739_%2525zp&amp;cjsku=0636920026938">Purchase the ebook and print editions</a> from O’Reilly. <a href="http://chimera.labs.oreilly.com/books/1230000000345/">A free, online version</a> includes interactive examples.  Download <a href="https://github.com/alignedleft/d3-book/">the sample code files</a> and <a href="https://tinyletter.com/alignedleft">sign up to receive updates by email</a>.<br>
+	<br>
+	<a href="http://twitter.com/alignedleft">Follow me on Twitter</a> or <a href="http://alignedleft.com/tutorials/d3/feed">watch this RSS feed</a> for other updates.<br>
+	<br>
+	These tutorials have been generously translated to <a href="https://joanprimpratrec2.github.io/">Catalan (Català)</a> by Joan Prim, <a href="http://pkuwwt.github.com/d3-tutorial-cn">Chinese (简体中文)</a> by <a href="http://pkuwwt.github.com/">Wentao Wang</a>, <a href="http://kaisersly.github.io/scottmurray-d3-fr/">French (Français)</a> by <a href="https://twitter.com/kaisersly">Sylvain Kieffer</a>, <a href="http://ja.d3js.info/alignedleft/tutorials/d3/">Japanese (日本語版)</a> by <a href="http://blog.node.ws/">Hideharu Sakai</a>, <a href="http://serganbus.github.io/d3tutorials/">Russian (русский)</a> by <a href="http://serganbus.github.io/">Sergey Ivanov</a>, and <a href="http://gcoch.github.io/D3-tutorial/">Spanish (Español)</a> by <a href="https://twitter.com/gabrielcoch">Gabriel Coch</a>.<br>
+	<br>
+	Also see my video courses, “<a href="http://www.anrdoezrs.net/click-6754088-11790507">An Introduction to d3.js: From Scattered to Scatterplot</a>” and “<a href="http://www.anrdoezrs.net/click-6754088-12316700-1440191634000">Intermediate d3.js: Charts, Layouts, and Maps</a>.”</p>
+<p></p>
+
+<div style="clear: both;"></div>
+</div>
+
+	<footer>
+		<p>Copyright © 2006–2016 Scott Murray</p>	</footer>
+
+<!-- Piwik -->
+<script src="Making%20a%20bar%20chart%20%E2%80%94%20Scott%20Murray%20%E2%80%94%20alignedleft_files/piwik.js" async="" defer="defer" type="text/javascript"></script><script type="text/javascript">
+	var _paq = _paq || [];
+	_paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+		_paq.push(["trackPageView"]);
+	_paq.push(["enableLinkTracking"]);
+
+	(function() {
+		var u=(("https:" == document.location.protocol) ? "https" : "http") + "://track.alignedleft.com/";
+		_paq.push(["setTrackerUrl", u+"piwik.php"]);
+		_paq.push(["setSiteId", "1"]);
+		var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+		g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+	})();
+</script>
+<!-- End Piwik -->
+
+
+</body></html>

@@ -1,0 +1,49 @@
+
+423
+
+2858, American Beauty (1999), 3428
+260, Star Wars: Episode IV - A New Hope (1977), 2991
+1196, Star Wars: Episode V - The Empire Strikes Back (1980), 2990
+1210, Star Wars: Episode VI - Return of the Jedi (1983), 2883
+480, Jurassic Park (1993), 2672
+2028, Saving Private Ryan (1998), 2653
+589, Terminator 2: Judgment Day (1991), 2649
+2571, Matrix, The (1999), 2590
+1270, Back to the Future (1985), 2583
+593, Silence of the Lambs, The (1991), 2578
+1580, Men in Black (1997), 2538
+1198, Raiders of the Lost Ark (1981), 2514
+608, Fargo (1996), 2513
+
+3280, Baby, The (1973), 5.0
+3881, Bittersweet Motel (2000), 5.0
+1830, Follow the Bitch (1998), 5.0
+787, Gate of Heavenly Peace, The (1995), 5.0
+3656, Lured (1947), 5.0
+3607, One Little Indian (1973), 5.0
+989, Schlafes Bruder (Brother of Sleep) (1995), 5.0
+3233, Smashing Time (1967), 5.0
+3382, Song of Freedom (1936), 5.0
+3172, Ulysses (Ulisse) (1954), 5.0
+
+Shawshank Redemption, The (1994), 4.55455770094297, 2227, Drama
+Godfather, The (1972), 4.52496626180837, 2223, Action|Crime|Drama
+Usual Suspects, The (1995), 4.5171060011217, 1783, Crime|Thriller
+Schindler's List (1993), 4.51041666666667, 2304, Drama|War
+Raiders of the Lost Ark (1981), 4.47772474144789, 2514, Action|Adventure
+Rear Window (1954), 4.47619047619048, 1050, Mystery|Thriller
+Star Wars: Episode IV - A New Hope (1977), 4.45369441658308, 2991, Action|Adventure|Fantasy|Sci-Fi
+Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963), 4.44989027066569, 1367, Sci-Fi|War
+
+
+1215
+
+
+63
+
+103
+103663
+10376
+20453
+37797
+

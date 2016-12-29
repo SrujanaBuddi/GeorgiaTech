@@ -1,0 +1,18 @@
+1. difference between key collision and k-nearest? which one is better> why?
+key collision(fingerprint) is going for clustering works depending on the number of words and match between words. It's taking into consideration added symbols,numers and case sensitivities. For example it's clustering 13th Annual Banquet,15th Annual Banquet,16th Annual Banquet, and 18th Annual Banquet. while n-gram fingerprint with ngram size 2 doesn't make the mistake of clusitering columns with varied number differences and it effectively clusters the columns that vary in cases and has additional symbols. however this also doesnt cluster words with spelling mistakes.k-nearest produced results silimilar to key collision method. But the time taken to do this is very high. While key collision gave clusters in 4 seconds, k-NN took 8 minutes to do the task.
+
+nearest neighbour seems to take a lot of time. So going for key collision method.Also, radius and block size are to be evaluated by human which can be difficult in some cases.
+
+Why is this useful? In practice, using big values for n-grams doesn't yield any advantage over the previous fingerprint method, but using 2-grams and 1-grams, while yielding many false positives, can find clusters that the previous method didn't find even with strings that have small differences, with a very small performance price.
+
+For example "Krzysztof", "Kryzysztof" and "Krzystof" have different lengths and different regular fingerprints, but share the same 1-gram fingerprint because they use the same letters.
+
+fingerprint cannot cluster words if the words are not seperated by spaces and cannot correct spelling misatkes or typos beacuse it works by split the string into whitespace-separated tokens. for example fingerprint didnt cluster DINNNER and DINNER and Dinner Dance and Dinner-Dance. And similarly, ngram finger print failed in clustering Lunch or dinner and dinner or lunch, lincoln's birthday dinner and dinner,lincoln's birthday
+
+toString(toDate(value),"EEEEEE,MMMM dd,yyyy")
+'https://api.menu.nylp.org/dishes/'+value
+
+Nominal Data- location type,Venue
+Ordinal Data- Status
+
+Transpose of cell - reshaping data can be done using transpose function.

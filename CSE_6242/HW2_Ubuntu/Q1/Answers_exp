@@ -1,0 +1,48 @@
+<!DOCTYPE html5>
+<html lang='en'>
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Table Creation</title>
+		<style>
+		    table{
+			border-collapse:collapse;
+			border:2px black solid;
+			font:12px sans-serif;
+			}
+		     td{
+			border: 1px black solid;
+			padding:5px;
+			}
+		</style>	
+	</head>
+	<body>
+
+		<script src ="../lib/d3.v3.min.js"></script>
+
+		<script type="text/javascript"charset="utf-8">
+			d3.text("Q1.csv",function(data){
+			var parsedCSV=d3.csv.parseRows(data)
+			var table1=[]
+			var j=0
+			for (var i=0;i<parsedCSV.length;i++){
+			row=parsedCSV[i]
+			if (row[0]==2005||row[0]=='Year'){
+			table1[j]=row
+			j=j+1}
+			}
+
+			var container=d3.select("body")
+			    .append("table")
+			     
+			    .selectAll	("tr")
+				.data(table1).enter()
+				.append("tr")
+
+			    .selectAll("td")
+				.data(function(d) {return d;}).enter()
+				.append("td")
+				.text(function(d) {return d;})
+			});
+		</script>
+	</body>
+</html>

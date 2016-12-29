@@ -1,0 +1,874 @@
+[
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column event",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "event",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER",
+          "dinner",
+          "[DINNER]",
+          "Dinner",
+          "(DINNER)",
+          "DINNER;",
+          "DINNER (?)",
+          "DINNER(?)",
+          "dinner ",
+          "DINNNER",
+          "[DINNER?]",
+          "(?DINNER?)",
+          "DINNER,",
+          "DINNER?",
+          "[?DINNER?]",
+          "[DINNER ?]"
+        ],
+        "to": "DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH",
+          "lunch",
+          "Lunch",
+          "[LUNCH]",
+          "(?LUNCH?)",
+          "LUNCH;",
+          "[LUNCH?]",
+          "(LUNCH)",
+          "LUNCH (?)",
+          "LUNCH."
+        ],
+        "to": "LUNCH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BREAKFAST",
+          "Breakfast",
+          "breakfast",
+          "[BREAKFAST]",
+          "BREAKFAST;",
+          "BREAKFAST (?)",
+          "BREAKFAST(?)",
+          "[BREAKFAST ?]"
+        ],
+        "to": "BREAKFAST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU",
+          "daily menu",
+          "Daily menu",
+          "(DAILY MENU)",
+          "DAILY MENU;",
+          "[DAILY MENU?]",
+          "[DAILY] MENU"
+        ],
+        "to": "DAILY MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SUPPER",
+          "supper",
+          "SUPPER (?)",
+          "SUPPER(?)",
+          "Supper",
+          "SUPPER;"
+        ],
+        "to": "SUPPER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCHEON",
+          "[LUNCHEON]",
+          "LUNCHEON;",
+          "Luncheon",
+          "luncheon"
+        ],
+        "to": "LUNCHEON"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH & DINNER",
+          "lunch; dinner",
+          "LUNCH-DINNER",
+          "LUNCH;DINNER"
+        ],
+        "to": "LUNCH & DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Afternoon tea",
+          "AFTERNOON TEA",
+          "afternoon tea",
+          "afternoon tea ["
+        ],
+        "to": "Afternoon tea"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MITTAGESSEN - DINNER",
+          "MITTAGESSEN [DINNER]",
+          "MITTAGESSEN/DINNER",
+          "MITTAGESSEN[DINNER]"
+        ],
+        "to": "MITTAGESSEN - DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER - SECOND CABIN",
+          "DINNER SECOND CABIN",
+          "DINNER,SECOND CABIN",
+          "DINNER-SECOND CABIN"
+        ],
+        "to": "DINNER - SECOND CABIN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WINE LIST",
+          "wine list",
+          "WINE LIST;",
+          "Wine list"
+        ],
+        "to": "WINE LIST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "INSPECTION TRIP - LUNCHEON",
+          "INSPECTION TRIP, LUNCHEON",
+          "INSPECTION TRIP, LUNCHEON;"
+        ],
+        "to": "INSPECTION TRIP - LUNCHEON"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER A LA CARTE",
+          "DINNER-A LA CARTE",
+          "dinner; a la carte"
+        ],
+        "to": "DINNER A LA CARTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "A LA CARTE",
+          "a la carte",
+          "a la Carte"
+        ],
+        "to": "A LA CARTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ANNIVERSARY DINNER",
+          "ANNIVERSARY DINNER?",
+          "ANNIVERSARY [DINNER]"
+        ],
+        "to": "ANNIVERSARY DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRUHSTUCK-BREAKFAST",
+          "FRUHSTUCK/BREAKFAST",
+          "FRUHSTUCK/BREAKFAST;"
+        ],
+        "to": "FRUHSTUCK-BREAKFAST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MENU",
+          "Menu",
+          "MENU;"
+        ],
+        "to": "MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MITTAGESSEN",
+          "MITTAG-ESSEN",
+          "MITTAGESSEN;"
+        ],
+        "to": "MITTAGESSEN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ANNUAL DINNER",
+          "Annual Dinner",
+          "[ANNUAL DINNER?]"
+        ],
+        "to": "ANNUAL DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER MENU",
+          "Dinner Menu",
+          "Dinner menu"
+        ],
+        "to": "DINNER MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CARTE DU JOUR",
+          "(CARTE DU JOUR)",
+          "CARTE DU JOUR;"
+        ],
+        "to": "CARTE DU JOUR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, DINNER",
+          "DAILY MENU,DINNER",
+          "DAILY MENU; DINNER"
+        ],
+        "to": "DAILY MENU, DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER/DINER",
+          "DINER/DINNER",
+          "DINNER, DINER"
+        ],
+        "to": "DINNER/DINER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LADIES NIGHT",
+          "LADIES' NIGHT"
+        ],
+        "to": "LADIES NIGHT"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YEAR'S DAY DINNER",
+          "NEW YEARS DAY DINNER"
+        ],
+        "to": "NEW YEAR'S DAY DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH A LA CARTE",
+          "Lunch A La Carte"
+        ],
+        "to": "LUNCH A LA CARTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EIGHTH ANNUAL BANQUET",
+          "EIGHTH ANNUAL BANQUET'"
+        ],
+        "to": "EIGHTH ANNUAL BANQUET"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINER",
+          "[DINER]"
+        ],
+        "to": "DINER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCHEON A LA CARTE",
+          "LUNCHEON, A LA CARTE"
+        ],
+        "to": "LUNCHEON A LA CARTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER TO ABOVE",
+          "DINNER TO ABOVE;"
+        ],
+        "to": "DINNER TO ABOVE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY LUNCH;",
+          "DAILY LUNCH"
+        ],
+        "to": "DAILY LUNCH;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Tea Menu",
+          "tea menu"
+        ],
+        "to": "Tea Menu"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH OR DINNER",
+          "LUNCH &/OR DINNER"
+        ],
+        "to": "LUNCH OR DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABEND-ESSEN",
+          "ABENDESSEN"
+        ],
+        "to": "ABEND-ESSEN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRUHSTUCK/LUNCH",
+          "FRUHSTUCK-LUNCH"
+        ],
+        "to": "FRUHSTUCK/LUNCH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH MENU",
+          "Lunch menu"
+        ],
+        "to": "LUNCH MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCHEON MENU",
+          "Luncheon Menu"
+        ],
+        "to": "LUNCHEON MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. VALENTINE'S DAY DINNER",
+          "ST. VALENTINES DAY DINNER"
+        ],
+        "to": "ST. VALENTINE'S DAY DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY BILL OF FARE",
+          "DAILY BILL OF FARE;"
+        ],
+        "to": "DAILY BILL OF FARE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WEDDING(?)",
+          "wedding"
+        ],
+        "to": "WEDDING(?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, LUNCH",
+          "DAILY MENU; LUNCH"
+        ],
+        "to": "DAILY MENU, LUNCH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, LUNCHEON",
+          "DAILY MENU,LUNCHEON"
+        ],
+        "to": "DAILY MENU, LUNCHEON"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WEDDING DINNER",
+          "(WEDDING)DINNER"
+        ],
+        "to": "WEDDING DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "REUNION",
+          "[?REUNION?]"
+        ],
+        "to": "REUNION"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BANQUET",
+          "Banquet"
+        ],
+        "to": "BANQUET"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH AND DINNER",
+          "lunch and dinner"
+        ],
+        "to": "LUNCH AND DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BREAKFAST MENU",
+          "Breakfast Menu"
+        ],
+        "to": "BREAKFAST MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BREAKFAST - SECOND CABIN",
+          "BREAKFAST-SECOND CABIN"
+        ],
+        "to": "BREAKFAST - SECOND CABIN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BREAKFAST,LUNCH & DINNER",
+          "BREAKFAST; LUNCH; DINNER"
+        ],
+        "to": "BREAKFAST,LUNCH & DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, SUPPER",
+          "DAILY MENU,SUPPER"
+        ],
+        "to": "DAILY MENU, SUPPER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YEAR'S DINNER",
+          "NEW YEARS DINNER"
+        ],
+        "to": "NEW YEAR'S DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RECEPTION",
+          "[RECEPTION]"
+        ],
+        "to": "RECEPTION"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MIDDAG/DINNER",
+          "MIDDAG-DINNER"
+        ],
+        "to": "MIDDAG/DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Breakfast (?) Held By Nordeutscher Lloyd Bremen At On Board The Ss George Washington",
+          "Breakfast  Held By Nordeutscher Lloyd Bremen At On Board The Ss George Washington"
+        ],
+        "to": "Breakfast (?) Held By Nordeutscher Lloyd Bremen At On Board The Ss George Washington"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TABLE D'HOTE DINNER",
+          "TABLE d'HOTE DINNER"
+        ],
+        "to": "TABLE D'HOTE DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "INSPECTION TRIP, BREAKFAST",
+          "INSPECTION TRIP - BREAKFAST"
+        ],
+        "to": "INSPECTION TRIP, BREAKFAST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Room service",
+          "room service"
+        ],
+        "to": "Room service"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SUPPER MENU",
+          "Supper Menu"
+        ],
+        "to": "SUPPER MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TESTIMONIAL DINNER",
+          "Testimonial Dinner"
+        ],
+        "to": "TESTIMONIAL DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DEJEUNER FOURCHETTE/LUNCHEON",
+          "DEJEUNER FOURCHETTE/ LUNCHEON"
+        ],
+        "to": "DEJEUNER FOURCHETTE/LUNCHEON"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(DINNER DANCE)",
+          "DINNER-DANCE"
+        ],
+        "to": "(DINNER DANCE)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Daily",
+          "DAILY"
+        ],
+        "to": "Daily"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER, FIFTH ANNUAL",
+          "DINNER,FIFTH ANNUAL"
+        ],
+        "to": "DINNER, FIFTH ANNUAL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FOURTH ANNUAL DINNER",
+          "Fourth Annual Dinner"
+        ],
+        "to": "FOURTH ANNUAL DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FOURTH OF JULY DINNER",
+          "FOURTH OFJULY DINNER"
+        ],
+        "to": "FOURTH OF JULY DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "INSPECTION TRIP, DINNER",
+          "INSPECTION TRIP, DINNER;"
+        ],
+        "to": "INSPECTION TRIP, DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PRIVATE DINNER",
+          "[PRIVATE DINNER?]"
+        ],
+        "to": "PRIVATE DINNER"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column event",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "event",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BANQUET AND RECEPTION",
+          "reception and banquet"
+        ],
+        "to": "BANQUET AND RECEPTION"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TABLE D'HOTE DINNER",
+          "DINNER TABLE D'HOTE"
+        ],
+        "to": "TABLE D'HOTE DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCHEON TABLE D'HOTE",
+          "TABLE D'HOTE LUNCHEON"
+        ],
+        "to": "LUNCHEON TABLE D'HOTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH & DINNER",
+          "[?DINNER? - LUNCH?]"
+        ],
+        "to": "LUNCH & DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BREAKFAST AND SUPPER",
+          "SUPPER  AND BREAKFAST"
+        ],
+        "to": "BREAKFAST AND SUPPER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, DINNER",
+          "DAILY DINNER MENU"
+        ],
+        "to": "DAILY MENU, DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WASHINGTON'S BIRTHDAY BANQUET",
+          "BANQUET (WASHINGTON'S BIRTHDAY?)"
+        ],
+        "to": "WASHINGTON'S BIRTHDAY BANQUET"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINNER A LA CARTE",
+          "a la carte; dinner"
+        ],
+        "to": "DINNER A LA CARTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY LUNCH MENU",
+          "DAILY MENU, LUNCH"
+        ],
+        "to": "DAILY LUNCH MENU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUNCH OR DINNER",
+          "DINNER OR LUNCH"
+        ],
+        "to": "LUNCH OR DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LINCOLN'S BIRTHDAY DINNER",
+          "DINNER, LINCOLNS BIRTHDAY"
+        ],
+        "to": "LINCOLN'S BIRTHDAY DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FIFTH ANNUAL DINNER",
+          "DINNER, FIFTH ANNUAL"
+        ],
+        "to": "FIFTH ANNUAL DINNER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, BREAKFAST",
+          "DAILY BREAKFAST MENU"
+        ],
+        "to": "DAILY MENU, BREAKFAST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAILY MENU, LUNCHEON",
+          "DAILY LUNCHEON MENU"
+        ],
+        "to": "DAILY MENU, LUNCHEON"
+      }
+    ]
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column date using expression grel:toString(toDate(value),\"EEEEEE,MMMM dd,yyyy\")",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "date",
+    "expression": "grel:toString(toDate(value),\"EEEEEE,MMMM dd,yyyy\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column URL at index 1 based on column id using expression grel:'​https://api.menu.nylp.org/dishes/'",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "URL",
+    "columnInsertIndex": 1,
+    "baseColumnName": "id",
+    "expression": "grel:'​https://api.menu.nylp.org/dishes/'",
+    "onError": "set-to-blank"
+  },
+  {
+    "op": "core/column-removal",
+    "description": "Remove column URL",
+    "columnName": "URL"
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column URL at index 1 based on column id using expression grel:'https://api.menu.nylp.org/dishes/'+value",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "URL",
+    "columnInsertIndex": 1,
+    "baseColumnName": "id",
+    "expression": "grel:'https://api.menu.nylp.org/dishes/'+value",
+    "onError": "set-to-blank"
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column URL at index 1 based on column id using expression grel:'https://api.menu.nylp.org/dishes/'+value",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "URL",
+    "columnInsertIndex": 1,
+    "baseColumnName": "id",
+    "expression": "grel:'https://api.menu.nylp.org/dishes/'+value",
+    "onError": "set-to-blank"
+  }
+]

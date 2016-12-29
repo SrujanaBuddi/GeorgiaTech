@@ -1,0 +1,1 @@
+I am using scatter plot to plot SAT scores Vs Median Salaries, color coded based on the State in which university is present. I am emdebbing tool tip to the datapoints which display university details.

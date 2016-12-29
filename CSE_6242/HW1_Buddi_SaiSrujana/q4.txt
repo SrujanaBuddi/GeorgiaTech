@@ -1,0 +1,4 @@
+● Q4Menu.csv​  : Export the final table. 
+● changes.json​  : Submit a list of changes made to file in json format. Use the “​ Extract 
+Operation History” option under the Undo/Redo tab to create this file.  
+● Q4Observations.txt ​ : A text file with answers to parts c (i) and c (iii) and c (v) 

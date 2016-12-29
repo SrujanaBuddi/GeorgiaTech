@@ -1,0 +1,8 @@
+From my experience FTS is significantly faster than SQL 'like' command. This is mainly because SQL 'like' command runs linear scan through out the whole text to find the string but FTS uses full-text query. When tried the below written commands using EXPLAIN query of SQLite3
+	explain query plan select * from movie_overview where overview like '%life%'; 
+	explain query plan select * from movie_overview where overview match 'life';
+the below results appeared respectively 
+	0|0|0|SCAN TABLE movie_overview VIRTUAL TABLE INDEX 0:
+	0|0|0|SCAN TABLE movie_overview VIRTUAL TABLE INDEX 5:
+FTS virtual tables have built-in-full-text indices. For a general database, the full-text search(FTS) will be significantly faster than SQL like search assuming the appropriate full text search index is built on the field being searched. The SQL LIKE operator generally doesn't use an index. So it must read all the data to find the matches which is time consuming.
+

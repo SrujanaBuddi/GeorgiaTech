@@ -1,0 +1,21 @@
+c
+(i). 
+1. I prefer using key collison method over nearest neighbour because:
+	1. Key collison is significantly faster than nearest neigbour(4 seconds vs ~8 minutes)
+	2. Key collison is more efficient in clustering. For the given dataset, on the event column nearest neighbour breaks data into 180 		clusters and key collison breaks data into 60 clusters.
+
+2.
+Fingerprint function breaks a sentence into set of words and groups inputs with same set of words. n-gram fingerprint method breaks a sentence into set of n size character sets and groups inputs with same set of n-grams. Fingerprint function may not cluster words with spelling mistakes or missing charecters or typos like {DINNNER,DINNER} and {Dinner Dance,Dinner-Dance} because the word sets differ. And ngram finger print failed in clustering {'Lunch or dinner', 'dinner or lunch'}, {'lincoln's birthday dinner', 'dinner,lincoln's birthday'} because the character sets vary between both the inputs.
+
+
+c
+(iii).
+Nominal Data- Venue
+Ordinal Data- Status
+Venue is nominal data because categoring a venue into commercial, public, private etc. is nothing but naming or labelling the data without any measure. 
+Status is ordinal data because the values of status in the data "under review","complete","in progress" are the quantitaive ordering terms.
+
+
+c
+(v).
+Customized facets can be used for cleaning and refining the data at deeper levels. Duplicate facets can delete duplicate rows. Word facet can be used to locate all the rows with a given word. Facet by blank is used to group all the data with blank entry when set value to 'True'.

@@ -1,0 +1,130 @@
+/* 	CSS for alignedleft.com
+	Design and code copyright 2011-2012 Scott Murray */
+
+/* Tutorials */
+
+body {
+	font-size: 16px;
+	line-height: 21px;
+}
+
+h2, h3 {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h3 {
+	font-size: 14px;
+	color: gray;
+}
+
+h2 {
+	font-size: 36px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+}
+
+p {
+	margin-left: 0;
+	margin-bottom: 16px;
+}
+
+ul {
+	margin-left: 3px;
+	margin-bottom: 16px;
+	padding-left: 15px;
+}
+
+ol {
+	margin-left: 13px;
+	margin-bottom: 16px;
+	padding-left: 15px;
+}
+
+li {
+	margin-bottom: 7px;
+}
+
+li > ul {
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+/* Center header */
+
+header {
+	width: 500px;
+	position: inherit;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 72px;
+}
+
+header h1 {
+	margin-left: 0;
+}
+
+nav {
+	position: inherit;
+	top: auto;
+	left: auto;
+	width: auto;
+	margin-left: 20px;
+}
+
+/* Tutorial content */
+
+#text {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#text p.timestamp {
+	font-size: 14px;
+	color: #aaa;
+	margin-bottom: 36px;
+}
+
+#text h2 {
+	font-size: 24px;
+	margin-top: 24px;
+	margin-bottom: 16px;
+}
+
+#text pre {
+	display: block;
+	white-space: pre;
+	margin-bottom: 16px;
+}
+
+#text code {
+	font-family: monospace;
+	font-size: 15px;
+	color: #008;
+}
+
+#text img {
+	margin-top: 16px;
+	margin-bottom: 16px;
+	margin-left: -24px;
+}
+
+#text p.next_up,
+#text p.the_end {
+	margin-top: 32px;
+	padding: 10px;
+	background-color: #eee;
+}
+
+#text .feedback img {
+	margin: 0;
+}
+
+footer {
+	margin-left: 10px;
+}
+
+
+

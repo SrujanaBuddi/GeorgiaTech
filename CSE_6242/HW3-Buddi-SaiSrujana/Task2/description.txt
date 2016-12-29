@@ -1,0 +1,3 @@
+I am reading the file into a variable (*Line 12) and mapping each edge details(*Line 15). I am filtering all the edges with weight equal to 1(*Line 18). I am storing all the sources and the negative of the weight in a list and all the targets and the weight in another list(*Line 21,22). Now I am adding the weights of all nodes with same keys using reduce by key function(*Line 25). And I am saving the result in an output variable(*Line 28) and saving the result as text file (*Line 30)
+
+*- Reference line numbers from the code

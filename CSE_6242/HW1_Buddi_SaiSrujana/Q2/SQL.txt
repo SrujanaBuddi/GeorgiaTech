@@ -1,0 +1,25 @@
+sqlite3 rt.db
+create table movies(movie_id int,name text,genre text)
+.separator "%"
+.import movies.txt movies
+create table ratings(user_id integer,movie_id integer,rating real,timestamp integer)
+.separator "%"
+.import ratings.txt ratings
+create index movies_primary_index on movies(movie_id)
+create index movies_secondary_index on ratings(movie_id)
+----------
+select a.movie_id,a.name,count(b.rating) from movies a,ratings b where a.movie_id=b.movie_id group by b.movie_id having count(b.rating)>=2500 order by count(b.rating) DESC;
+select a.movie_id,a.name,avg(b.rating) from movies a,ratings b where a.movie_id=b.movie_id group by b.movie_id order by avg(b.rating) DESC,a.name LIMIT 10;
+select a.name,avg(b.rating),count(b.user_id),a.genre from movies a,ratings b where a.movie_id=b.movie_id group by b.movie_id having count(b.user_id)>=1000 order by avg(b.rating) DESC,a.name,a.genre LIMIT 8;
+
+
+create view common_interests as 
+select a.user_id, b.user_id, a.movie_id from ratings a join ratings b on a.movie_id=b.movie_id and a.user_id<b.user_id group by a.movie_id having count(a.user_id)=10;
+
+select a.user_id,b.user_id from ratings a join ratings b on a.movie_id=b.movie_id and a.user_id<b.user_id group by a.movie_id,b.movie_id having count(a.user_id)=10 and count(b.user_id)=10;
+ 
+select a.user_id,b.user_id from ratings a join ratings b on a.movie_id=b.movie_id and a.user_id<b.user_id group by a.movie_id having count(a.user_id)=10;
+
+select a.user_id, b.user_id, a.movie_id from ratings a join ratings b on a.movie_id=b.movie_id and a.user_id<b.user_id group by a.movie_id,a.user_id,b.user_id having count(a.user_id)=10;
+
+select count(u1) from (select a.user_id as u1,b.user_id from ratings a join ratings b on a.movie_id=b.movie_id and a.user_id<b.user_id group by  a.movie_id having count(a.user_id)=10);

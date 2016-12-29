@@ -1,0 +1,1 @@
+I am using force atlas layout because it find it to be very well defined in space. To avoid overlapping of nodes used adjust size option provided. I assigned colors depending on the group the nodes belong to (follower nodes are given green, friends are given violet, root user are given blue). Size of a node in my graph depends on out degree.

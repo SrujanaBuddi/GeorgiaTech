@@ -1,0 +1,263 @@
+
+<!DOCTYPE html><!-- Don't panic! All this code looks intimidating but eventually it will make sense. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>!DOCTYPE html - HTML5 doctype declaration - HTML5 tutorial</title>
+    <meta name="description" content="!DOCTYPE html - the doctype declaration tells the browser that this page is written in HTML5">
+    <!-- The Cascading Style Sheet (CSS) file mycss.css is where I set colors, fonts, spacing etc. - what is called "style". HTML is for "content". -->
+    <link rel="stylesheet" href="mycss.css"> 
+    <!-- The following makes older IEs (< IE9) work with new HTML5 tags. -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="glossary" href="glossary.htm">
+    <link rel="copyright" href="copyright.htm">
+    <link rel="prefetch" href="http://www.html-5-tutorial.com/html-tag.htm">
+    <script src="scripts/allscripts.js"></script>
+    <!-- Google Analytics --> 
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-10200228-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+       </script>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebApplication"><!-- Throughout the site you will see tags with itemscope, itemtype=" " and itemprop=" ". This has to do with Rich Snippets that help with SEO. As a beginner don't worry about them. They are still in development. Hopefully by the time you need to use them they will be easier to implement. -->
+    <!-- BuySellAds Ad Code -->
+    <script type="text/javascript">
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = 'http://s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- End BuySellAds Ad Code -->
+    <div class="left">
+    <!-- The row across the top of the page -->
+    <header>
+    <a href="http://www.html-5-tutorial.com/"><img src="images/html-5-tutorial.gif" alt="HTML5 tutorial - HTML5 doctype declaration" height="100" width="900"></a>
+    </header>
+    <!-- The links down the left -->
+    <nav>
+    <ul>
+      <li><a href="http://www.html-5-tutorial.com/">home</a></li>
+      <li><a href="start-html5-tutorial.htm">start tutorial</a></li>
+      <li><a href="about-html.htm">what is HTML?</a></li>
+      <li><a href="about-html5.htm">what is HTML5?</a></li>
+      <li><a href="what-its-not.htm">what it's not</a></li>
+      <li><strong><a href="doctype.htm"><code>&lt;doctype&gt;</code></a></strong></li>
+      <li><a href="html-tag.htm"><code>&lt;html&gt;</code></a></li>
+      <li><a href="head-tag.htm"><code>&lt;head&gt;</code></a></li>
+      <li><a href="body-tag.htm"><code>&lt;body&gt;</code></a></li>
+      <li><a href="h1-h6-tags.htm"><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code></a></li>
+      <li><a href="p-tag.htm"><code>&lt;p&gt;</code></a></li>
+      <li><a href="ul-ol-tags.htm"><code>&lt;ul&gt;</code>  &amp; <code>&lt;ol&gt;</code></a></li>
+      <li><a href="dl-tag.htm"><code>&lt;dl&gt;</code></a></li>
+      <li><a href="a-tag.htm"><code>&lt;a&gt;</code></a></li>
+      <li><a href="table-tag.htm"><code>&lt;table&gt;</code></a></li>
+      <li><a href="strong-and-b-elements.htm"><code>&lt;strong&gt;</code> &amp; <code>&lt;b&gt;</code></a></li>
+      <li><a href="div-tag.htm"><code>&lt;div&gt;</code></a></li>
+      <li><a href="div-tag-cont.htm"><code>&lt;div&gt;</code> cont.</a></li>
+      <li><a href="header-element.htm"><code>&lt;header&gt;</code></a></li>
+      <li><a href="nav-element.htm"><code>&lt;nav&gt;</code></a></li>
+      <li><a href="article-element.htm"><code>&lt;article&gt;</code></a></li>
+      <li><a href="footer-element.htm"><code>&lt;footer&gt;</code></a></li>
+      <li><a href="aside-element.htm"><code>&lt;aside&gt;</code></a></li>
+      <li><a href="section-element.htm"><code>&lt;section&gt;</code></a></li>
+      <li><a href="image-element.htm"><code>&lt;img&gt;</code></a></li>
+      <li><a href="image-element-cont.htm"><code>&lt;img&gt;</code> cont.</a></li>
+      <li><a href="map-and-area-elements.htm"><code>&lt;map&gt;</code> &amp; <code>&lt;area&gt;</code></a></li>
+      <li><a href="form-element.php"><code>&lt;form&gt;</code></a></li>
+      <li><a href="input-element.php"><code>&lt;input&gt;</code></a></li>
+      <li><a href="domain.php">get a domain</a> <b class="red sm">NEW</b></li>
+      <li><a href="server.htm">get a server</a> <b class="red sm">NEW</b></li>
+      <li><a href="signup-bluehost.htm">signing up</a> <b class="red sm">NEW</b></li>
+      <li><a href="blog.htm">blog</a></li>
+      <li><a href="all-html-tags.htm">all HTML5 tags</a></li>
+      <li><a href="helpful-links.htm">helpful links</a></li>
+      <li><a href="glossary.htm">glossary</a></li>
+      <li><a href="contact.php">contact</a></li>
+    </ul>
+    </nav>
+    <article>
+    <nav class="pvnx"><a href="what-its-not.htm">previous</a> &bull; <a href="doctype.htm" class="noshow">doctype</a> &bull; <a href="html-tag.htm">next</a></nav>
+    <h1 itemprop="name"><strong itemprop="description"><a itemprop="url" href="http://www.html-5-tutorial.com/doctype.htm" class="noshow">The doctype declaration</a></strong></h1>
+    <img itemprop="image" class="showcode" src="images/doctype.gif" alt="The doctype declaration tells the computer what type of html the page is written in - in this case HTML5" height="194" width="163">
+    <p>Take a look at this page's <em>"Source Code"</em>. The source code is the HTML that generates a page.</p>
+    <p>On a PC in Chrome or FireFox right click anywhere on the page (except the ads) and select "View page source", or even easier just click "Ctrl-U". In IE "Ctrl-U" doesn't work; you have to right click the page and select "View Source". Select it all, copy it and paste it into Notepad or some text editor. If you have any problems or are in a different browser search "source code" in help.</p>
+    <p>At the very top of the page you will see the <span class="define">doctype declaration</span>:</p>
+    <h2 class="l"><code>&lt;!DOCTYPE html&gt;</code> *</h2>
+    <p>Like any language, <strong>HTML5</strong> has a grammar and a vocabulary.</p>
+    <dl>
+      <dt><em>Grammar</em></dt>
+        <dd><code>&lt;!DOCTYPE html&gt;</code> goes at the top of every <strong>HTML5</strong> page.</dd>
+      <dt><em>Vocabulary</em></dt>
+        <dd>The <strong>HTML5</strong> word <code>&lt;!DOCTYPE html&gt;</code> means "this page is written in HTML5" as opposed to, say <span class="define">HTML 4.01</span>.</dd>
+    </dl>
+    <p>Why, you ask, don't they just write <code>&lt;HTML5&gt;</code> or even a zesty <code>&lt;<strong>!</strong>HTML5&gt;</code>? I have absolutely no idea. Still it's better than what they had before. Here's an example of one common type of <span class="define">XHTML</span>:</p>
+    <p class="c"><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</code></p>
+    <p>Hopefully the doctype declaration in <strong>HTML5</strong> won't turn into the crazy mess it did with XHTML and previous versions of HTML. Those in charge of such things say it won't, but time will tell.</p>
+    <dl>
+    <dt>So now you learned three things:</dt>
+      <dd>
+        <ol>
+          <li>How to view the source code of a page, an important tool.</li>
+          <li>You know one word in <strong>HTML5</strong>: <code>&lt;!DOCTYPE html&gt;</code> = <strong>"HTML5"</strong></li>
+          <li>and one grammar rule: <code>&lt;!DOCTYPE html&gt;</code> goes at the top of every page.</li>
+        </ol>
+      </dd>
+    </dl>
+    <nav class="pvnx"><a href="what-its-not.htm">previous</a> &bull; <a href="doctype.htm" class="noshow">doctype</a> &bull; <a href="html-tag.htm">next</a></nav>
+    <div class="glossary">
+      <div class="glossaryl">
+        <section title="doctype declaration">
+          <h1 class="sec"><strong class="define">doctype declaration</strong></h1>
+          <p><dfn>Document Type Declaration<br>
+          <a href="http://en.wikipedia.org/wiki/Doctype" target="_blank">wikipedia</a></dfn></p>
+        </section>
+        <section title="HTML 4.01">
+          <h1 class="sec"><strong class="define">HTML 4.01</strong></h1>
+          <p><dfn>Hypertext Markup Language ver. 4.01<br>
+          <a href="http://en.wikipedia.org/wiki/HTML" target="_blank">wikipedia</a> &middot; <a href="http://www.w3.org/TR/html401/" target="_blank">w3.org</a></dfn></p>
+        </section>
+      </div>
+      <div class="glossaryr">
+        <section title="XHTML">
+          <h1 class="sec"><strong class="define">XHTML</strong></h1>
+          <p><dfn>Extensible Hypertext Markup Language<br>
+          <a href="http://en.wikipedia.org/wiki/XHTML" target="_blank">wikipedia</a> &middot; <a href="http://www.w3.org/TR/xhtml1/" target="_blank">w3.org</a></dfn></p>
+        </section>
+      </div>
+    </div>
+    <p class="sm"><b>*</b> Unlike earlier versions of HTML, in HTML5 the doctype declaration is case-insensitive.<br>
+    In other words <code>&lt;!doctype html&gt;</code> works as well as <code>&lt;!DOCTYPE html&gt;</code>.</p>
+    <!-- The row on the bottom -->
+    <footer> 
+    <h2><strong><a href="doctype.htm" class="botlink">The doctype declaration</a></strong></h2>
+    <p>"May the line of least resistance lead me on." Delbert McClinton</p>
+    <aside class="blue">
+      <p><a href="http://www.bluehost.com/track/html5tutorial/doctype_txt" target="_blank" class="bluehost">This site is hosted with blue<b>host</b>.</a></p>
+    </aside>
+      <section class="how">
+        <p><a href="http://www.howimakeawebsite.com/" target="_blank">If you have a moment please take a look at another site of mine:<br><img src="images/howimakeawebsite.gif" width="320" height="45" alt="how i make a website"></a></p>
+      </section>
+      <table class="wd100">
+        <tr>
+          <td class="sm c wd33"><a href="privacy-policy.htm">privacy policy</a></td>
+          <td class="sm c"><a href="about-html-5-tutorial.htm">about html-5-tutorial.com</a></td>
+          <td class="sm c wd33"><a href="copyright.htm">copyright</a></td>
+        </tr>
+      </table>
+    <table class="wd100">
+    <tr>
+      <td class="cm lr">
+        <p><b>Sign up for my newsletter.</b></p>
+         <form action="https://tinyletter.com/html5tutorial" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/html5tutorial', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true"><label for="tlemail"><b>Email:</b> </label> <input type="text" class="wd140" name="email" id="tlemail"><input type="hidden" value="1" name="embed"> <input type="submit" value="Subscribe"><br><a class="xsm" href="https://tinyletter.com" target="_blank">Powered by TinyLetter</a> &ndash; <span class="xsm"><a href="privacy-policy.htm" title="Privacy Policy">Privacy Policy</a></span></form>
+       </td>
+       <td class="c">
+         <a href="http://www.w3.org/html/logo/" target="_blank"><img class="html5logo" src="http://www.html-5-tutorial.com/images/html5-badge-h-css3-semantics.gif" width="145" height="64" alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics"></a>
+      </td>
+       <td class="cm lr">
+         <p><a href="javascript:bookmark_us('http://www.html-5-tutorial.com/','Html-5-tutorial.com - A tutorial for beginners')"><strong>Bookmark html-5-tutorial.com</strong></a><br><span class="xsm">(In Chrome press <strong>Ctrl-D</strong>)</span></p>
+       </td>
+     </tr>
+    </table>
+    <p class="copy">You may need to upgrade your browser to <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home" target="_blank">IE 9.0</a>, <a href="https://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">FireFox</a>.<br>Older browsers, most notably IE 8.0 and earlier, do not support HTML5.</p>
+    <meta itemprop="browserRequirements" content="All browsers except IE6 and earlier.">
+    <address><a href="copyright.htm">&copy; <script>print_year()</script></a> <a href="https://plus.google.com/114814659207265399196/posts" rel="author" target="_blank">Duncan Aitken</a> &bull; Barrio Jucanya, Panajachel, Guatemala C.A. &bull; <a href="http://www.atitlandesign.com" target="_blank">Atitlan Design</a> &bull; <script>print_mail_to_link()</script></address>
+    </footer>
+    </article> 
+    </div>
+    <aside>
+      <div class="gplus">
+        <!-- Place this tag where you want the +1 button to render -->
+        <div class="g-plusone" data-size="medium" data-href="http://www.html-5-tutorial.com/"></div>
+        <p class="gplus">Be my hero!</p>
+        <!-- Place this render call where appropriate -->
+        <script>
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+      </div>
+      <div class="translate">
+        <div id="google_translate_element"></div>
+        <script>
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+              pageLanguage: 'en'
+            }, 'google_translate_element');
+          }
+        </script>
+      </div>
+    </aside>
+    <aside>
+      <!-- BuySellAds Zone Code -->
+      <div id="bsap_1274364" class="bsarocks bsap_39ebccb7e5e959f9f55b3ba9102dcd69"></div>
+      <!-- End BuySellAds Zone Code -->
+    </aside>
+       <aside class="c">
+      <a href="http://www.bluehost.com/track/html5tutorial/doctype_ad" target="_blank"><img src="images/bh-300x250-03-dy.png" class="bluehost" height="250" width="300" alt="bluehost" title="This site is hosted with bluehost."><br>
+      <span class="bluehost">This site is hosted with bluehost.</span></a>
+    </aside>
+    <aside> 
+      <script><!--
+      google_ad_client = "ca-pub-2444787543288456";
+      /* 300x250 */
+      google_ad_slot = "7744338993";
+      google_ad_width = 300;
+      google_ad_height = 250;
+      //-->
+      </script>
+      <script
+      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
+    </aside>
+    <aside> 
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-2444787543288456";
+      /* Middle Right text ads */
+      google_ad_slot = "9003136878";
+      google_ad_width = 300;
+      google_ad_height = 250;
+      //-->
+      </script>
+      <script type="text/javascript"
+      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
+    </aside>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+</html>
+
+/*
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+</body>
+</html>
+*/
+
+<! DOCTYPE html>
+<html>
+<head>
+<title> Head Tag - HTML5 Tutorial </title>
+.
+.
+</head>
+<body>
+.
+.
+</body>
+</html>

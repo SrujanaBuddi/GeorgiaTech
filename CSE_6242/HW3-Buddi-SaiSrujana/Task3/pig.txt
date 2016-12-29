@@ -1,0 +1,11 @@
+bigram = LOAD 's3://cse6242-2016fall-bigrams-big/*' AS (bigram:chararray, year:int, occur:float, books:float);
+f_bigram = FILTER bigram by occur>=50;
+grp = GROUP f_bigram by (bigram);
+group_mean = FOREACH grp{
+                  t_books = SUM(f_bigram.books);
+                  t_count = SUM(f_bigram.occur);
+                  GENERATE group as bigram,t_count/t_books as mean_occur;
+                  };
+ord_group_mean = order group_mean by mean_occur desc, bigram;
+op = limit ord_group_mean 10;
+store op into 's3://cse6242-sbuddi3/output-big.txt';

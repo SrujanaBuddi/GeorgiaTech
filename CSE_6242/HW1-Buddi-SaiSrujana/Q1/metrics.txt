@@ -1,0 +1,7 @@
+Average node degree:2.061
+Diameter of the graph:4
+Average path length:3.624
+
+● Average node degree : Average of all node degrees. Node degree of a node is no.of edges coming from node.
+● Diameter of the graph: The maximum distance between two nodes in the graph
+● Average path length : Average of distances between any two nodes in the graph

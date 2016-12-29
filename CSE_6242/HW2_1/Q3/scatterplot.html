@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<style>
+<title>Scatter Plot</title>
+circle {
+  fill: #eca;
+}
+traingle {
+fill:
+}
+</style>
+
+<body>
+<script>
+
+var width = 960,
+    height = 500,
+    color = d3.scale.category20c();
+
+dataset=[];
+
+d3.tsv("iris.tsv",function(error,data){
+console.log(data);
+    data.forEach(function(d) {
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+    }});
+
+var svg = d3.select("body").append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+// define the nodes
+//svg.selectAll("circle")
+  //  .data(dataset)
+	//.enter().append("g")
+    //.append("circle")
+	//.attr("r", 5)
+	//.attr("cx", function(d) {return d[0];})
+    //.attr("cy", function(d) {return d[1];})
+    
+
+</script>
+</body>
+</html>

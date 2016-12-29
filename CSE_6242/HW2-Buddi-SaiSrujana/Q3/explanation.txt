@@ -1,0 +1,5 @@
+(i)
+The graph of Feature 3 and 4 is better in seperating classes. In the first graph where feature 1 and 2 are plotted, the datapoints overlap and can't be differentiated.
+
+(iii)
+Log scale can be used when data is of very high range is to be displayed efficiently. 

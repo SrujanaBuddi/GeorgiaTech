@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<style>
+<title>Scatter Plot</title>
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+
+<body>
+<script>
+
+var margin={top:20,right:20,bottom:20,left:130}
+    width = 1200,
+    leg_wid=450,
+    height = 450;
+
+//setup x
+var xVal1 = function(d) { return d["SAT_AVG_ALL"];},
+    xScale = d3.scale.linear().range([0, width-leg_wid]),
+    xMap1 = function(d) { return xScale(xVal1(d));}, 
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    
+// setup y
+var yVal1 = function(d) { return d["md_earn_wne_p10"];},
+    yScale = d3.scale.linear().range([height,0]), 
+    yMap1 = function(d) { return yScale(yVal1(d));}, 
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+var tip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([-10, 0])
+      .html(function(d) {
+        return  d["INSTNM"] + "<br>" + "State" + ": " + d["STABBR"]+"<br>" + "SAT Score" + ": " + d["SAT_AVG_ALL"]+"<br>" + "Average Salary" + ": " + d["md_earn_wne_p10"];
+      });
+
+
+// setup fill color
+var cVal1 = function(d) { return d.STABBR;},
+    color = d3.scale.category10();
+
+//console.log(color.domain())
+
+//load data
+d3.csv("Most+Recent+Cohorts+(Scorecard+Elements).csv",function(error,data){
+data.forEach(function(d){
+d.INSTNM=d.INSTNM;
+d.STABBR=d.STABBR;
+d.TUITIONFEE_IN=d.TUITIONFEE_IN;
+d["SAT_AVG_ALL"]=+d["SAT_AVG_ALL"];
+d["md_earn_wne_p10"]=+d["md_earn_wne_p10"];})
+
+//append SVG
+
+var svg = d3.select("body").append("svg")
+			.attr("width", width+margin.left+margin.right)
+			.attr("height", height+margin.top+margin.bottom)
+			.append("g")
+			.attr("transform", function(d,i){return "translate(" +margin.left + "," + margin.top + ")";});
+svg.call(tip);
+
+//adding title
+svg.append("text")
+        .attr("x", (width / 2)-20)             
+        .attr("y", 5 - (margin.top / 2))
+        .attr("text-anchor", "end")  
+        .style("font-size", "20px") 
+        .style("text-decoration", "underline")  
+        .text("SAT Scores Vs Mean Salary");
+
+// scaling axis
+  xScale.domain([d3.min(data, xVal1)-1, d3.max(data, xVal1)+1]);
+  yScale.domain([d3.min(data, yVal1)-1, 140000]);
+
+// x-axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width-leg_wid)
+      .attr("y", -4)
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("SAT scores");
+
+ // y-axis
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", -30)
+      .attr("y", height/2.0)
+      .attr("dy", ".7lem")
+      .style("text-anchor", "end")
+      .style("font-size", "15px")
+      .text("Mean Salary");
+
+// define the nodes
+  svg.selectAll(".point")
+    .data(data)
+   .enter().append("path")
+    .attr("class","point")
+    .attr("transform", function(d) { return "translate(" + xMap1(d) +  "," + yMap1(d) + ")"; })
+    .attr("d",d3.svg.symbol().size(function(d){return 50;})
+.type(function(d){return "circle";}))
+    .style("fill", function(d) { return color(cVal1(d));})
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide)  
+    .attr("id", function(d){return 'tag'+d.STABBR.replace(/\s+/g, '');}) // assign ID **
+
+ 
+  // draw legend
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { if(i%15==0){w=i*5;}return "translate("+w+ "," + (i%15) * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", width-leg_wid+50)
+      .attr("y",45)
+      .attr("width", 15)
+      .attr("height", 15)
+      .style("fill", color);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x",width-leg_wid+40)
+      .attr("y", 50)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;}) 
+      .on("click", function(d){  
+ // Determine if current line is visible 
+                var active   = d.active ? false : true,  // ************ 
+                newOpacity = active ? 0 : 1;             // ************
+                // Hide or show the elements based on the ID
+                d3.select("#tag"+d.STABBR.replace(/\s+/g, '')) // *********
+                    .transition().duration(100)          // ************
+                    .style("opacity", newOpacity);       // ************
+                // Update whether or not the elements are active
+                d.active = active;                       // ************
+                })     
+
+});
+
+</script>
+</body>
+</html>

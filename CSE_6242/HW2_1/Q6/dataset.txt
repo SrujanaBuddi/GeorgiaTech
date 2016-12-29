@@ -1,0 +1,8 @@
+{product:'Product A',freq:{Q1:716, Q2:1287, Q3:249, Q4:324}}
+,{product:'Product B',freq:{Q1:2000, Q2:1876, Q3:3009, Q4:973}}
+,{product:'Product C',freq:{Q1:899, Q2:2333, Q3:418, Q4:213}}
+,{product:'Product D',freq:{Q1:989, Q2:1543, Q3:1862, Q4: 1111}}
+,{product:'Product E',freq:{Q1:4200, Q2:3220, Q3:948, Q4: 629}}
+,{product:'Product F',freq:{Q1:1321, Q2:156, Q3:212, Q4: 821}}
+,{product:'Product G',freq:{Q1:1977, Q2:247, Q3:1203, Q4: 562}}
+,{product:'Product H',freq:{Q1:2498, Q2:2852, Q3:942, Q4: 444}}

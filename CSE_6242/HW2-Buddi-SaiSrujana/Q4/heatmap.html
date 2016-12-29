@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.tile {
+  shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
+<body>
+<script src="../lib/d3.v3.min.js"></script>
+<script>
+
+var margin = {top: 20, right: 90, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.linear().range([0, width]),
+    y = d3.scale.linear().range([height, 0]),
+    z = d3.scale.linear().range(["white", "green"])
+    xAxis = d3.svg.axis().scale(x).orient("bottom")
+    yAxis = d3.svg.axis().scale(y).orient("left");
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("hourly_heatmap.json", function(error, data) {
+var max1=[]
+var key=[]
+  if (error) throw error;
+
+for(i=0;i<data.length;i++)
+{
+key.push(data[i].key);
+max1.push(Math.max.apply(this,data[i].values))
+}
+
+	x.domain([0,24]);
+	y.domain(d3.extent(key,function(d){return d;}));
+	z.domain([0,Math.max.apply(this,max1)]);
+var svg1= svg.selectAll(".svg1")
+      .data(data)
+    .enter().append("g");
+
+      svg1.selectAll(".tile")
+	.data(function(d){return d.values;}) 
+       .enter().append("rect")     
+	.attr("class", "tile")
+      .attr("x", function(d,i) { return x(i); })
+      .attr("width", function(d,i){return x(i+1) - x(i);})
+      .style("fill", function(d) { return z(d); });
+
+  svg1.each(function (d) {
+    d3.select(this).selectAll(".tile")
+        .attr("y", y(d.key)-20 )
+        .attr("height", 20 );})
+
+//adding title
+svg.append("text")
+	.attr("x", width-200)
+	.attr("class","label")
+	.style("font-size",'20px')
+	.style("text-anchor", "end")
+	.text("Hourly Data of Glucose levels in blood");
+
+//x-axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .append("text")
+      .attr("class", "label")
+      	.text("Hours")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end");
+
+//y-axis
+svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+	.attr("class", "label")
+        .text("Glucose Levels")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end");
+
+
+  var legend = svg.selectAll(".legend")
+    .data(z.ticks().reverse()).attr("y", height+margin.right-30)
+    .enter()
+    .append("g")
+    .attr("class","legend")
+        .attr("transform", function(d, i) {
+                return "translate(" + (width -25) + "," + (5 + i * 15) + ")";});
+
+  legend.append("rect")
+      .attr("width", 25)
+      .attr("height", 25)
+      .style("fill", z);
+
+  legend.append("text")
+      .attr("x", 25)
+      .attr("y", 4)
+      .attr("dx",".25em")
+      .attr("dy", ".10em")
+      .text(String);
+});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//second graph
+
+var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"];
+
+var x1 = d3.scale.linear().domain([0,7]).range([0, width])
+var xAxis1 = d3.svg.axis().scale(x1).orient("bottom").tickFormat(function(d,i){return week[i]})
+
+//var  date_format = d3.time.format("%a");
+//var x1 = d3.time.scale().domain([0,7]).range([0, width])
+//var xAxis1 = d3.svg.axis().scale(x1).orient("bottom")//.tickFormat(date_format)
+
+var svg2 = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("day_heatmap.json", function(error, data) {
+var max2=[]
+var key1=[]
+  if (error) throw error;
+
+for(i=0;i<data.length;i++)
+{
+key1.push(data[i].key);
+max2.push(Math.max.apply(this,data[i].values))
+}
+
+	x.domain([0,7]);
+	y.domain(d3.extent(key1,function(d){return d;}));
+	z.domain([0,Math.max.apply(this,max2)]);
+
+//adding svg
+var svg3= svg2.selectAll(".svg3")
+      .data(data)
+    .enter().append("g");
+
+      svg3.selectAll(".tile")
+	.data(function(d){return d.values;}) 
+       .enter().append("rect")     
+	.attr("class", "tile")
+      .attr("x", function(d,i) { return x(i); })
+      .attr("width", function(d,i){return x(i+1) - x(i);})
+      .style("fill", function(d) { return z(d); });
+
+  svg3.each(function (d) {
+    d3.select(this).selectAll(".tile")
+        .attr("y", y(d.key)-20 )
+        .attr("height", 20 );})
+
+//adding title
+svg3.append("text")
+	.attr("x", width-200)
+	.attr("class","label")
+	.style("font-size",'20px')
+	.style("text-anchor", "end")
+	.text("Weekly Data of Glucose levels in blood");
+
+//x-axis
+  svg3.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis1)
+      .append("text")
+      	.text("Days")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end");
+
+//y-axis
+svg3.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+        .text("Glucose Levels")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end");
+
+//legend
+  var legend = svg3.selectAll(".legend")
+    .data(z.ticks().reverse()).attr("y", height+margin.right-30)
+    .enter()
+    .append("g")
+    .attr("class","legend")
+        .attr("transform", function(d, i) {
+                return "translate(" + (width -25) + "," + (5 + i * 15) + ")";});
+
+  legend.append("rect")
+      .attr("width", 25)
+      .attr("height", 25)
+      .style("fill", z);
+
+  legend.append("text")
+      .attr("x", 25)
+      .attr("y", 4)
+      .attr("dx",".25em")
+      .attr("dy", ".10em")
+      .text(String);
+});
+</script>
+</body>
+</html>

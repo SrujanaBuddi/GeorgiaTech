@@ -1,0 +1,301 @@
+/* 	CSS for alignedleft.com
+	Stylesheet for narrow (small-screen, mobile) displays
+	Design and code copyright 2011-2014 Scott Murray */
+
+
+
+/* General */
+
+body {
+	font-size: 16px;
+	line-height: 1.2;
+}
+
+a {
+	-webkit-tap-highlight-color: rgba(1, 113, 141, 0.2);
+}
+
+canvas {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+
+/* Header */
+
+header {
+	margin-top: 10px;
+	margin-bottom: 50px;
+	width: 100%;
+	position: inherit;
+}
+
+header h1 {
+	width: auto;
+}
+
+nav {
+	position: inherit;
+	top: 0;
+	left: 0;
+	width: auto;
+	margin-top: 25px;
+	margin-left: 10px;
+}
+
+nav ul li {
+	font-size: 16px;
+}
+
+
+
+/* Body */
+
+#proj_nav {
+	position: inherit;
+	left: auto;
+	width: 90%;
+	margin-left: 20px;
+	margin-top: 50px;
+}
+
+#proj_nav p {
+	font-size: 16px;
+	line-height: 30px;
+}
+
+#proj_nav p span {
+	display: block;
+	margin-right: 0;
+}
+
+#text {
+	width: 90%;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+#media {
+	position: inherit;
+	left: auto;
+}
+
+#media div.image,
+#media div.media,
+#media iframe {
+	margin-right: 0;
+}
+
+
+
+/* Footer */
+
+footer {
+	width: 90%;
+	margin-left: 10px;
+	margin-right: 20px;
+	margin-top: 50px;
+}
+
+
+
+/* Page-specific */
+
+body#home header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: auto;
+}
+
+body#home header h1 {
+	font-size: 36px;
+	line-height: 36px;
+	width: auto;
+}
+
+body#home header nav {
+	position: absolute;
+	float: none;
+	top: 40px;
+	left: 0;
+}
+
+body#home header nav ul li {
+	display: block;
+	margin-bottom: 15px;
+}
+
+body#home footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+
+
+/* Tutorials */
+
+body#tutorials-index ul.tutorials li {
+	width: 95%;
+}
+
+body#tutorials-index ul.tutorials li p {
+	line-height: 1.5;
+}
+
+body#tutorials h2 {
+	width: 90%;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+body#tutorials ol {
+	width: 90%;
+	margin-left: 35px;
+}
+
+body#tutorials ol li {
+	font-size: 16px;
+	margin-bottom: 8px;
+}
+
+body.tutorial header {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 72px;
+	width: 95%;
+}
+
+body.tutorial header h1 {
+	margin-left: 0;
+}
+
+body.tutorial header nav {
+	margin-left: 0;
+}
+
+body.tutorial h3 {
+	width: 90%;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+body.tutorial h2 {
+	width: 90%;
+	font-size: 36px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	margin-left: 20px;
+	line-height: 1.0;
+}
+
+body.tutorial #text {
+	width: 90%;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+body.tutorial #text h2 {
+	margin-left: 0;
+}
+
+body.tutorial #text img {
+	margin-left: 0;
+}
+
+p.feedback,
+#tutorials p.feedback {
+	width: 90%;
+	margin-left: 20px;
+	padding-left: 0;
+	font-size: 16px;
+	line-height: 1.2;
+}
+
+p.feedback img,
+#tutorials p.feedback img {
+	display: none;
+}
+
+body.tutorial p.feedback {
+	width: 95%;
+	margin-left: 0;
+}
+
+
+
+/* Resources */
+
+body.resource header {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 72px;
+	width: 95%;
+}
+
+body.resource header h1 {
+	margin-left: 0;
+}
+
+body.resource header nav {
+	margin-left: 0;
+}
+
+body.resource h3 {
+	width: 90%;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+body.resource h2 {
+	width: 90%;
+	font-size: 36px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	margin-left: 20px;
+	line-height: 1.0;
+}
+
+body.resource #text {
+	width: 88%;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+body.resource #text h2 {
+	margin-left: 0;
+}
+
+body.resource #text img {
+	margin-left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

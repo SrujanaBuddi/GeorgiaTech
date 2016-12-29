@@ -1,0 +1,1 @@
+I am scaling the radii linear to degree of node.The radius is good enough to show the variation in changes and not so big that nodes overlap
