@@ -68,7 +68,10 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
 	if gen_plot:
         # add code to plot here
         	df_temp = pd.concat([port_val, prices_SPY], keys=['Portfolio', 'SPY'], axis=1)
-        	df_temp=df_temp/df_temp.ix[0,:]
+		#ax=df_temp['Portfolio'].plot()
+		#plot_data(df_temp['Portfolio'])
+		#plot_data(df_temp['SPY'])
+		df_temp=df_temp/df_temp.ix[0,:]
 		ax=df_temp['Portfolio'].plot()
 		ax=df_temp['SPY'].plot()
 		ax.set_title("Daily portfolio value and SPY")
@@ -77,7 +80,7 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
 		plt.legend(loc="upper right")
 		plt.grid()
 		plt.show()
-		pass
+        	pass
 		
 	return allocs, cr, adr, sddr, sr
 
@@ -90,26 +93,29 @@ def test_code():
     # Note that ALL of these values will be set to different values by
     # the autograder!
 
-    start_date = dt.datetime(2009,1,1)
-    end_date = dt.datetime(2010,1,1)
-    symbols = ['GOOG', 'AAPL', 'GLD', 'XOM', 'IBM']
+	start_date = dt.datetime(2009,1,1)
+	end_date = dt.datetime(2010,1,1)
+	symbols = ['GOOG', 'AAPL', 'GLD', 'XOM', 'IBM']
+	#start_date = dt.datetime(2008,1,1)
+	#end_date = dt.datetime(2009,12,31)
+	#symbols = ['IBM', 'X', 'HNZ', 'XOM', 'GLD']
 
     # Assess the portfolio
-    allocations, cr, adr, sddr, sr =  optimize_portfolio(sd = start_date, ed = end_date,\
-        syms = symbols, \
-        gen_plot = False)
+	allocations, cr, adr, sddr, sr =  optimize_portfolio(sd = start_date, ed = end_date,\
+	syms = symbols, \
+	gen_plot = True)
 
     # Print statistics
-    print "Start Date:", start_date
-    print "End Date:", end_date
-    print "Symbols:", symbols
-    print "Allocations:", allocations
-    print "Sharpe Ratio:", sr
-    print "Volatility (stdev of daily returns):", sddr
-    print "Average Daily Return:", adr
-    print "Cumulative Return:", cr
+	print "Start Date:", start_date
+	print "End Date:", end_date
+	print "Symbols:", symbols
+	print "Allocations:", allocations
+	print "Sharpe Ratio:", sr
+	print "Volatility (stdev of daily returns):", sddr
+	print "Average Daily Return:", adr
+	print "Cumulative Return:", cr
 
 if __name__ == "__main__":
     # This code WILL NOT be called by the auto grader
     # Do not assume that it will be called
-    test_code()
+	test_code()
