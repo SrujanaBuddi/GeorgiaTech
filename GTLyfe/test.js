@@ -12,6 +12,10 @@ EstimoteSticker.on('discover', function(estimoteSticker) {
 
 		var connection = mysql.createConnection(
 			{
+				connectionLimit : 1000,
+    				connectTimeout  : 60 * 60 * 1000,
+    				aquireTimeout   : 60 * 60 * 1000,
+    				timeout         : 60 * 60 * 1000,
 				host:'139.59.3.60',
 				user : 'gtlyfe',
 				password : 'gt123@lyfe',
@@ -39,13 +43,13 @@ if (err) console.log(err);
 });
 /*console.log(queryString2.sql);*/
 
-var queryString1 = 'SELECT * from estimote_stickers';
+/*var queryString1 = 'SELECT * from estimote_stickers';
 connection.query(queryString1,function(err,rows,fields){
-		/*if (err) console.log(err);*/
+		if (err) console.log(err);
 		for (var i in rows){
-		/*console.log(rows[i].solution);*/
+		console.log(rows[i].solution);
 		} 
-})
+})*/
 connection.end();
 });
 });
